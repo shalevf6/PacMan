@@ -3,13 +3,17 @@
 
 <head>
     <link rel="stylesheet" type="text/css" href="StyleSheet.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+        </script>
+    <script src="../../../Desktop/University/שנה ג' - סמסטר ב'/סביבות פיתוח באינטרנט/מעבדות/Lab 4 - jQuery/task1/custom.js"></script>
 </head>
-
-<body>
-
-<nav id="Menu">
-
-</nav>
+<body onload="PageLoaded()">
+<header>
+    <a onclick="ShowSection('WelcomeScreen')" href="#">Welcome</a>
+    <a onclick="ShowSection('SignUpScreen')" href="#">Register</a>
+    <a onclick="ShowSection('LoginScreen')" href="#">Login</a>
+    <a onclick="ShowAbout()" href="#">Section 3</a>
+</header>
 
 SCORE:
 <input id="lblScore" type="text"/>
@@ -43,8 +47,9 @@ TIME:
 
 </canvas>
 
-<script
-        type="text/javascript" src="PacManJS.js">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+<script type="text/javascript" src="PacManJS.js">
 </script>
 </body>
 

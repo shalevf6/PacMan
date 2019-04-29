@@ -6,46 +6,64 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
         </script>
     <script type="text/javascript"  src="PacManJS.js"></script>
+    <title> Our Pac-Man Game</title>
 </head>
-<body onload="PageLoaded()">
+<body>
+<!--<body onload="PageLoaded()">-->
 <header>
-    <a onclick="ShowSection('WelcomeScreen')" href="#">Welcome</a>
-    <a onclick="ShowSection('SignUpScreen')" href="#">Register</a>
-    <a onclick="ShowSection('LoginScreen')" href="#">Login</a>
-    <a onclick="ShowAbout()" href="#">Section 3</a>
+    <div id="logoDiv">
+        <table>
+            <tr>
+                <td><img id="logo" src = Images/pacmanHeadLogo.png/></td>
+                <td><a class="ids">Shalev Fainstein 203676960</a></td>
+                <td><a class="ids">Hagai Kalinhoff 204383699</a></td>
+            </tr>
+        </table>
+    </div>
+    <div id="menu">
+    <a class="menu-item" onclick="ShowSection('WelcomeScreen')" href="#">Welcome</a>
+    |
+    <a class="menu-item" onclick="ShowSection('SignUpScreen')" href="#">Register</a>
+    |
+    <a class="menu-item" onclick="ShowSection('LoginScreen')" href="#">Login</a>
+    |
+    <a class="menu-item" onclick="ShowAbout()" href="#">About</a>
+    </div>
 </header>
 
-SCORE:
-<input id="lblScore" type="text"/>
-<br/>
 
-TIME:
-<input id="lblTime" type="text"/>
-<br/>
-
-<div id="WelcomeScreen">
+<div id="WelcomeScreen" class="screen">
 
 </div>
 
-<div id="SignUpScreen">
+<div id="SignUpScreen" class="screen">
 
 </div>
 
-<div id="LoginScreen">
+<div id="LoginScreen" class="screen">
 
 </div>
 
-<div id=SettingsScreen">
+<div id=SettingsScreen" class="screen">
 
+</div>
+
+
+<div id="GameScreen" class="screen">
+    SCORE:
+    <input id="lblScore" type="text"/>
+    <br/>
+
+    TIME:
+    <input id="lblTime" type="text"/>
+    <br/>
+    <canvas id="canvas" height="600" width="600">
+    </canvas>
 </div>
 
 <footer id=Footer">
 
 </footer>
-
-<canvas id="canvas" height="600" width="600">
-
-</canvas>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 

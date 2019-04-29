@@ -168,14 +168,14 @@ function PageLoaded()
 function ShowSection(id)
 {
     //hide all sections
-    var section1 = document.getElementById('WelcomeScreen');
-    section1.style.visibility="hidden";
-    var section2 = document.getElementById('SignUpScreen');
-    section2.style.visibility="hidden";
-    var section3 = document.getElementById('LoginScreen');
-    section3.style.visibility="hidden";
-    var section4 = document.getElementById('section4');
-    section4.style.visibility="hidden";
+    var WelcomeScreen = document.getElementById('WelcomeScreen');
+    WelcomeScreen.style.visibility="hidden";
+    var SignUpScreen = document.getElementById('SignUpScreen');
+    SignUpScreen.style.visibility="hidden";
+    var LoginScreen = document.getElementById('LoginScreen');
+    LoginScreen.style.visibility="hidden";
+    var GameScreen = document.getElementById('GameScreen');
+    GameScreen.style.visibility="hidden";
 
     //show only one section
     var selected = document.getElementById(id);

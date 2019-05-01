@@ -3,6 +3,22 @@
 
 <head>
     <link rel="stylesheet" type="text/css" href="StyleSheet.css" />
+
+    <!-- necessary reformed CSS -->
+    <!--[if IE]>
+    <link rel="stylesheet" type="text/css" href="reformed/css/ie_fieldset_fix.css" />
+    <![endif]-->
+    <link rel="stylesheet" href="reformed/css/uniform.aristo.css" type="text/css" />
+    <link rel="stylesheet" href="reformed/css/ui.reformed.css" type="text/css" />
+    <link rel="stylesheet" href="css/reformed-form-cupertino/jquery-ui-1.8.7.custom.css" type="text/css" />
+    <!-- end necessary reformed CSS -->
+
+    <!-- necessary reformed js -->
+    <script src="reformed/js/jquery.uniform.min.js" type="text/javascript"></script>
+    <script src="reformed/js/jquery.validate.min.js" type="text/javascript"></script>
+    <script src="reformed/js/jquery.ui.reformed.min.js" type="text/javascript"></script>
+    <!-- end necessary reformed js -->
+
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
     </script>
     <script type="text/javascript"  src="PacManJS.js"></script>
@@ -65,6 +81,78 @@
         <!--      SIGNUP DIV      -->
         <div id="signup_div" class="content">
 
+            <div class="reformed-form">
+                <form method="post" name="dcdf" id="dcdf" action="reformed/formmail/formmail.php">
+                    <dl>
+                        <dt>
+                            <label for="Username">Username</label>
+                        </dt>
+                        <dd><input type="text" id="Username" class="required" name="Username" /></dd>
+                    </dl>
+                    <dl>
+                        <dt>
+                            <label for="password">Password</label>
+                        </dt>
+                        <dd><input type="password" id="password" class="required  alphanumunderscorehyphen" name="password" minlength="8" /></dd>
+                    </dl>
+                    <dl>
+                        <dt>
+                            <label for="fName">First Name</label>
+                        </dt>
+                        <dd><input type="text" id="fName" class="required  lettersonly" name="fName" minwords="1" /></dd>
+                    </dl>
+                    <dl>
+                        <dt>
+                            <label for="lName">Last Name</label>
+                        </dt>
+                        <dd><input type="text" id="lName" class="required  lettersonly" name="lName" minlength="1" minwords="1" /></dd>
+                    </dl>
+                    <dl>
+                        <dt>
+                            <label for="email">e-Mail</label>
+                        </dt>
+                        <dd><input type="text" id="email" class="required  email" name="email" /></dd>
+                    </dl>
+                    <dl>
+                        <dt>
+                            <label for="birthday">Birthday</label>
+                        </dt>
+                        <dd><input type="text" id="birthday" class="datepicker required  date" name="birthday" /></dd>
+                    </dl>
+                    <div id="submit_buttons">
+                        <button type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+<!--            <form >-->
+
+<!--                <input type="text" name="username" placeholder="Username">-->
+<!--                <br>-->
+<!--                <br>-->
+
+
+<!--                <input type="password" name="password" placeholder="8-Digits Password">-->
+<!--                <br>-->
+<!--                <br>-->
+
+<!--                <label >-->
+<!--                    <input type="text" name="fName" placeholder="First Name">-->
+<!--                </label>-->
+<!--                <br>-->
+<!--                <br>-->
+
+<!--                <input type="text" name="lName" placeholder="Last Name">-->
+<!--                <br>-->
+<!--                <br>-->
+
+<!--                <input type="email" name="email" placeholder="Your eMail">-->
+<!--                <br>-->
+<!--                <br>-->
+
+<!--                <input type="date" name="birthday">-->
+
+
+<!--            </form>-->
 
         </div>
 
@@ -112,6 +200,39 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
 <script type="text/javascript" src="PacManJS.js">
+</script>
+
+<script type="text/javascript">
+    $(function(){ //on doc ready
+        //set validation options
+        //(this creates range messages from max/min values)
+        $.validator.autoCreateRanges = true;
+        $.validator.setDefaults({
+            highlight: function(input) {
+                $(input).addClass("ui-state-highlight");
+            },
+            unhighlight: function(input) {
+                $(input).removeClass("ui-state-highlight");
+            },
+            errorClass: 'error_msg',
+            wrapper : 'dd',
+            errorPlacement : function(error, element) {
+                error.addClass('ui-state-error');
+                error.prepend('<span class="ui-icon ui-icon-alert"></span>');
+                error.appendTo(element.closest('dl.ui-helper-clearfix').effect('highlight', {}, 2000));
+            }
+        });
+
+        //call reformed and the validation library on your form
+        $('#dcdf').reformed({
+            styleFileInputs : true, //use the uniform plugin to style file input boxes
+            styleRadios : true, //style radios with uniform plugin
+            styleCheckboxes : true, //style checkboxes with uniform plugin
+            styleSelects : true, //style selects with uniform plugin
+            styleButtonsWithUniform : false, //style all form buttons with uniform (false = styled by jquery UI)
+            styleDatepicker : true //use jqueryUI datepicker
+        }).validate();
+    });
 </script>
 </body>
 

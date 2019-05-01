@@ -13,13 +13,16 @@
 
     <div id="side-menu">
         <a href="javascript:void(0)" id="closeMenu" onclick="closeMenu()">&times;</a>
-        <a class="menu-item" onclick="ShowSection('WelcomeScreen')" href="#">Welcome</a>
-        |
-        <a class="menu-item" onclick="ShowSection('SignUpScreen')" href="#">Register</a>
-        |
-        <a class="menu-item" onclick="ShowSection('LoginScreen')" href="#">Login</a>
-        |
-        <a class="menu-item" onclick="ShowAbout()" href="#">About</a>
+        <table border=1 frame=hsides rules=rows>
+            <tr><td>
+                <a class="menu-item" onclick="ShowSection('WelcomeScreen')" href="#">Welcome</a></td></tr>
+            <tr><td>
+                <a class="menu-item" onclick="ShowSection('SignUpScreen')" href="#">Register</a></td></tr>
+            <tr><td>
+                <a class="menu-item" onclick="ShowSection('LoginScreen')" href="#">Login</a></td></tr>
+            <tr><td>
+                <a class="menu-item" onclick="ShowAbout()" href="#">About</a></td></tr>
+        </table>
     </div>
 
     <div id="main-wrapper">

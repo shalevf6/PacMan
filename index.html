@@ -4,92 +4,114 @@
 <head>
     <link rel="stylesheet" type="text/css" href="StyleSheet.css" />
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
-        </script>
+    </script>
     <script type="text/javascript"  src="PacManJS.js"></script>
     <title> Our Pac-Man Game</title>
 </head>
 <!--<body>-->
 <body onload="PageLoaded()">
 
-    <div id="side-menu">
-        <a href="javascript:void(0)" id="closeMenu" onclick="closeMenu()">&times;</a>
-        <table border=1 frame=hsides rules=rows>
-            <tr><td>
-                <a class="menu-item" onclick="ShowSection('WelcomeScreen')" href="#">Welcome</a></td></tr>
-            <tr><td>
-                <a class="menu-item" onclick="ShowSection('SignUpScreen')" href="#">Register</a></td></tr>
-            <tr><td>
-                <a class="menu-item" onclick="ShowSection('LoginScreen')" href="#">Login</a></td></tr>
-            <tr><td>
-                <a class="menu-item" onclick="ShowAbout()" href="#">About</a></td></tr>
-        </table>
-    </div>
+<!-- SIDE MENU -->
+<div id="side-menu">
+    <a href="javascript:void(0)" id="closeMenu" onclick="closeMenu()">&times;</a>
+    <table border=1 frame=hsides rules=rows>
+        <tr><td>
+            <a class="menu-item" onclick="ShowSection('welcome_div')" href="#">Welcome</a></td></tr>
+        <tr><td>
+            <a class="menu-item" onclick="ShowSection('signup_div')" href="#">Register</a></td></tr>
+        <tr><td>
+            <a class="menu-item" onclick="ShowSection('login_div')" href="#">Login</a></td></tr>
+        <tr><td>
+            <a class="menu-item" onclick="ShowAbout()" href="#">About</a></td></tr>
+    </table>
+</div>
 
-    <div id="main-wrapper">
-        <header class="inline-divs" id="logo_div">
-            <table id="logo_table">
+<!--    MAIN BODY    -->
+<div id="main-wrapper">
+
+    <!--  HEADER  -->
+    <header class="inline-divs" id="logo_div">
+        <table id="logo_table">
+            <tr>
+                <td id="logo_cell"><img id="logo" src = Images/pacmanHeadLogo.png/></td>
+                <td><a class="ids"><span>Shalev Fainstein</span> 203676960</a></td>
+                <td>||</td>
+                <td><a class="ids"><span>Hagai Kalinhoff</span> 204383699</a></td>
+            </tr>
+        </table>
+    </header>
+
+
+    <!--        CHANGING DIVS CONTAINER  -->
+    <div id="main_container"  class="inline-divs">
+
+        <span id="menu-button" style="font-size:30px;cursor:pointer" onclick="openMenu()"><span>&#9776; Menu</span></span>
+
+        <!--     WELCOME DIV       -->
+        <div id="welcome_div" class="content" >
+            <table id="welcome_buttons_table">
+                <tr id="welcome_row">
+                    <td colspan="2">
+                        <img id="welcome_image" src = Images/welcome.png/>
+                    </td>
+                </tr>
                 <tr>
-                    <td id="logo_cell"><img id="logo" src = Images/pacmanHeadLogo.png/></td>
-                    <td><a class="ids"><span>Shalev Fainstein</span> 203676960</a></td>
-                    <td>||</td>
-                    <td><a class="ids"><span>Hagai Kalinhoff</span> 204383699</a></td>
+                    <td><a id="sign-up_button" href="#" class="welcome_buttons">Sign Up</a></td>
+                    <td><a id="login_button" href="#" class="welcome_buttons">Login</a></td>
                 </tr>
             </table>
-        </header>
-
-        <div id="main_container"  class="inline-divs">
-            <span id="menu-button" style="font-size:30px;cursor:pointer" onclick="openMenu()"><span>&#9776; Menu</span></span>
-            <div id="welcome_div" class="content" >
-                <table id="welcome_buttons_table">
-                    <tr id="welcome_row">
-                        <td colspan="2">
-                            <img id="welcome_image" src = Images/welcome.png/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><a id="sign-up_button" href="#" class="welcome_buttons">Sign Up</a></td>
-                        <td><a id="login_button" href="#" class="welcome_buttons">Login</a></td>
-                    </tr>
-                </table>
-            </div>
-
-            <div id="signup_div" class="content">
-
-            </div>
-
-            <div id="login_div" class="content">
-
-            </div>
-
-            <div id=settings_div" class="content">
-
-            </div>
-
-            <div id="game_div" class="content">
-                SCORE:
-                <input id="lblScore" type="text"/>
-                <br/>
-
-                TIME:
-                <input id="lblTime" type="text"/>
-                <br/>
-                <canvas id="canvas" height="600" width="600">
-                </canvas>
-            </div>
         </div>
 
-        <footer id=footer_div class="inline-divs">
-            This website is a Web Design project.
-            <br>
-            Feel free to explore it and test its bounds!
-        </footer>
-    
+        <!--            SIGNUP DIV-->
+        <div id="signup_div" class="content">
+
+        </div>
+
+
+
+        <!--      LOGIN DIV      -->
+        <div id="login_div" class="content">
+
+        </div>
+
+
+
+        <!--      SETTINGS DIV      -->
+        <div id=settings_div" class="content">
+
+        </div>
+
+
+
+        <!--      GAME DIV      -->
+        <div id="game_div" class="content">
+            SCORE:
+            <input id="lblScore" type="text"/>
+            <br/>
+
+            TIME:
+            <input id="lblTime" type="text"/>
+            <br/>
+            <canvas id="canvas" height="600" width="600">
+            </canvas>
+        </div>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
-    <script type="text/javascript" src="PacManJS.js">
-    </script>
+
+    <!--      FOOTER      -->
+    <footer id=footer_div class="inline-divs">
+        This website is a Web Design project.
+        <br>
+        Feel free to explore it and test its bounds!
+    </footer>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+<script type="text/javascript" src="PacManJS.js">
+</script>
 </body>
 
 </html>

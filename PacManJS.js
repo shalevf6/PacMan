@@ -52,7 +52,7 @@ function Start() {
     addEventListener("keyup", function (e) {
         keysDown[e.code] = false;
     }, false);
-    interval = setInterval(UpdatePosition, 250);
+    interval = setInterval(UpdatePosition, 70);
 }
 
 

@@ -11,7 +11,7 @@ body {
 }
 
 #logo_div, #footer_div {
-    height: 100px;
+    height: 15%;
     background: #5ee1a3;
     z-index: 1;
     font-size: 30px;
@@ -37,7 +37,7 @@ body {
 }
 
 #main_container {
-    height: 700px;
+    height: 70%;
     width: inherit;
     background: #5ee1a3;
 }
@@ -131,6 +131,7 @@ canvas
 
 #welcome_div {
     text-align: center;
+
 }
 
 .welcome_buttons {

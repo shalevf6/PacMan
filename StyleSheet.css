@@ -6,13 +6,12 @@ body {
 }
 
 .content {
-    vertical-align: middle;
+    /*vertical-align: middle;*/
     display: table-cell;
 }
 
 #logo_div, #footer_div {
     height: 15%;
-    background: #5ee1a3;
     z-index: 1;
     font-size: 30px;
     font-family: "Berlin Sans FB";
@@ -39,7 +38,7 @@ body {
 #main_container {
     height: 70%;
     width: inherit;
-    background: #5ee1a3;
+    display: inline-block;
 }
 
 #footer_div {
@@ -91,6 +90,7 @@ canvas
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
+    text-align: center;
 }
 
 #side-menu a {
@@ -131,7 +131,9 @@ canvas
 
 #welcome_div {
     text-align: center;
-
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*flex-wrap: nowrap;*/
 }
 
 .welcome_buttons {
@@ -178,6 +180,15 @@ canvas
     padding-right: 100px;
     padding-bottom: 50px;
     font-family: "Berlin Sans FB";
+}
+
+#welcome_buttons_table {
+    position: fixed;
+    margin-left:30%; /* half of width */
+    margin-right:30%; /* half of width */
+    /*margin-top:10%;  !* half of height *!*/
+    /*top:10%;*/
+    /*left:10%;*/
 }
 
 #welcome_image {

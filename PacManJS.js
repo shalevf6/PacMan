@@ -162,19 +162,19 @@ function UpdatePosition() {
 
 function PageLoaded()
 {
-    ShowSection('WelcomeScreen');
+    ShowSection('welcome_div');
 }
 
 function ShowSection(id)
 {
     //hide all sections
-    var WelcomeScreen = document.getElementById('WelcomeScreen');
+    var WelcomeScreen = document.getElementById('welcome_div');
     WelcomeScreen.style.visibility="hidden";
-    var SignUpScreen = document.getElementById('SignUpScreen');
+    var SignUpScreen = document.getElementById('signup_div');
     SignUpScreen.style.visibility="hidden";
-    var LoginScreen = document.getElementById('LoginScreen');
+    var LoginScreen = document.getElementById('login_div');
     LoginScreen.style.visibility="hidden";
-    var GameScreen = document.getElementById('GameScreen');
+    var GameScreen = document.getElementById('game_div');
     GameScreen.style.visibility="hidden";
 
     //show only one section
@@ -184,4 +184,14 @@ function ShowSection(id)
 
 function ShowAbout() {
 return
+}
+
+function openMenu() {
+    document.getElementById("side-menu").style.width = "250px";
+    document.getElementById("main-wrapper").style.marginLeft = "250px";
+}
+
+function closeMenu() {
+    document.getElementById("side-menu").style.width = "0";
+    document.getElementById("main-wrapper").style.marginLeft= "0";
 }

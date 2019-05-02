@@ -1,13 +1,15 @@
 body {
     overflow-x: hidden;
-    background-image: url("Images/pacman-background.jpg");
+    background-image: url("../Images/pacman-background.jpg");
     background-attachment: fixed;
     background-size: 100%;
 }
 
 .content {
-    vertical-align: middle;
-    display: table-cell;
+    /*vertical-align: middle;*/
+    /*!*display: table-cell;*!*/
+    /*align-self: center;*/
+    /*align-items: center;*/
 }
 
 #logo_div, #footer_div {
@@ -17,7 +19,7 @@ body {
     font-size: 30px;
     font-family: "Berlin Sans FB";
     border-radius: 25px;
-    background-image: url("Images/logo-footer-background.jpg");
+    background-image: url("../Images/logo-footer-background.jpg");
     background-attachment: fixed;
 }
 
@@ -76,7 +78,7 @@ canvas
 
 .inline-divs {
     width: 98%;
-    display: inline-block;
+    /*display: inline-block;*/
     /*vertical-align: middle;*/
 }
 
@@ -131,7 +133,6 @@ canvas
 
 #welcome_div {
     text-align: center;
-
 }
 
 .welcome_buttons {
@@ -183,4 +184,10 @@ canvas
 #welcome_image {
     width: 500px;
     height: 300px;
+}
+
+
+form div {
+    display: block;
+    padding-bottom: 5px;
 }

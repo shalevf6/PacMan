@@ -169,17 +169,19 @@ function ShowSection(id)
 {
     //hide all sections
     var WelcomeScreen = document.getElementById('welcome_div');
-    WelcomeScreen.style.visibility="hidden";
+    WelcomeScreen.style.display="none";
     var SignUpScreen = document.getElementById('signup_div');
-    SignUpScreen.style.visibility="hidden";
+    SignUpScreen.style.display="none";
     var LoginScreen = document.getElementById('login_div');
-    LoginScreen.style.visibility="hidden";
+    LoginScreen.style.display="none";
     var GameScreen = document.getElementById('game_div');
-    GameScreen.style.visibility="hidden";
+    GameScreen.style.display="none";
+    var settingScreen = document.getElementById('settings_div');
+    settingScreen.style.display="none";
 
     //show only one section
     var selected = document.getElementById(id);
-    selected .style.visibility="visible";
+    selected .style.display="block";
 }
 
 function ShowAbout() {

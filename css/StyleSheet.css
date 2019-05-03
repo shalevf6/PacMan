@@ -1,5 +1,7 @@
 /*TODO:
     1. add error class which defines validations
+    2. add changing logged in label on top of the screen
+    3. fix user and password check in user_handler.js
 */
 
 
@@ -19,13 +21,13 @@ body {
 
 #logo_div, #footer_div {
     height: 15%;
-    background: #5ee1a3;
     z-index: 1;
     font-size: 30px;
     font-family: "Berlin Sans FB";
     border-radius: 25px;
     background-image: url("../Images/logo-footer-background.jpg");
     background-attachment: fixed;
+    background-repeat: round;
 }
 
 #logo_table {
@@ -46,7 +48,7 @@ body {
 #main_container {
     height: 70%;
     width: inherit;
-    background: #5ee1a3;
+    background: #f1f1f1;
 }
 
 #footer_div {
@@ -63,10 +65,12 @@ body {
 {
     width: 400px;
     height: 105px;
+    cursor:pointer;
 }
 
-#menu-button {
+.upper_screen {
     padding-left: 20px;
+    font-size: 20px;
 }
 
 #menu-button span{
@@ -98,6 +102,7 @@ canvas
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
+    text-align: center;
 }
 
 #side-menu a {
@@ -107,6 +112,7 @@ canvas
     color: #818181;
     display: block;
     transition: 0.3s;
+    cursor:pointer;
 }
 
 #side-menu a:hover {
@@ -191,6 +197,15 @@ canvas
     height: 300px;
 }
 
+#buttons_div {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    margin-right: 50px;
+}
+
+#sign-up_button {
+    margin-right: 20px;
+}
 
 form div {
     display: block;

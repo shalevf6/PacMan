@@ -2,6 +2,7 @@ let registeredUsers = {
     'a' : 'a'
 };
 let registerValidator;
+let loginValidator;
 
 
 $(document).ready(function() {
@@ -13,7 +14,7 @@ $(document).ready(function() {
     $.validator.addMethod('okPassword', function(value, element){
         return this.optional(element) || (
             /[A-Za-z]/i.test(value)
-        && /\d/.test(value)
+            && /\d/.test(value)
         );
     }, 'Password must contain at least 1 letter and 1 digit');
 
@@ -25,6 +26,8 @@ $(document).ready(function() {
         return this.optional( element ) || /^[a-z]+$/i.test( value );
     }, "Letters only please" );
 
+
+});
 
     registerValidator = $('#register_form').validate({
         rules : {
@@ -65,9 +68,44 @@ $(document).ready(function() {
                 email: 'You must insert a valid e-mail address'
             }
         }
+
+    });
+
+$(document).ready(function() {
+
+    $.validator.addMethod("exists", function(value, element) {
+        let valid = false;
+        let username =  $('#login_username').val();
+        if (username in registeredUsers) {
+            if (value == registeredUsers[username]) {
+                valid = true;
+            }
+        }
+        return this.optional(element) || valid;
+    });
+
+    loginValidator = $('#login_form').validate({
+        rules : {
+            login_password : {
+                required: true,
+            },
+            login_username : {
+                required : true,
+                exists : true
+            },
+        },
+
+        messages: {
+            login_username: {
+                required: 'You must enter an existing user name'
+            },
+            login_password: {
+                required: 'You must enter a valid password',
+                exists: 'The user name or the password are incorrect'
+            }
+        }
     });
 });
-
 
 
 
@@ -85,7 +123,7 @@ $(document).ready(function() {
 /**
  * once submit has been pressed
 
-$('#register_form').submit(function (e) {
+ $('#register_form').submit(function (e) {
 
 })*/
 

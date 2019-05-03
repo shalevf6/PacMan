@@ -184,6 +184,9 @@ function ShowSection(id)
     var settingScreen = document.getElementById('settings_div');
     settingScreen.style.display="none";
 
+    if(menu_open)
+        closeMenu()
+
     //show only one section
     var selected = document.getElementById(id);
     selected .style.display="block";
@@ -215,4 +218,20 @@ function openMenu() {
 function closeMenu() {
     document.getElementById("side-menu").style.width = "0";
     document.getElementById("main-wrapper").style.marginLeft= "0";
+}
+
+
+
+/************************   GENERAL    **********************/
+/**
+ * changes the upper user name, if logged in successfully
+ */
+function changeUpperUser() {
+    var form = document.getElementById('login_form');
+    var isValid = true;
+    if (isValid) {
+        // document.getElementById('upper_user').valueOf()='Logged in as' + document.getElementById('login_username').valueOf();
+        let a = $('upper_user');
+        a.val('test');
+    }
 }

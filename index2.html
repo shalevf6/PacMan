@@ -20,14 +20,31 @@
 <div id="side-menu">
     <a href="javascript:void(0)" id="closeMenu" onclick="flipMenu()">&times;</a>
     <table border=1 frame=hsides rules=rows>
-        <tr><td>
-            <a class="menu-item" onclick="ShowSection('welcome_div')" >Welcome</a></td></tr>
-        <tr><td>
-            <a class="menu-item" onclick="ShowSection('signup_div')" >Register</a></td></tr>
-        <tr><td>
-            <a class="menu-item" onclick="ShowSection('login_div')" >Login</a></td></tr>
-        <tr><td>
-            <a class="menu-item" onclick="ShowAbout()" >About</a></td></tr>
+        <tr>
+            <td>
+                <a class="menu-item" onclick="ShowSection('welcome_div');flipMenu()">Welcome</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a class="menu-item" onclick="ShowSection('signup_div');flipMenu()">Register</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a class="menu-item" onclick="ShowSection('login_div');flipMenu()">Login</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a class="menu-item" onclick="ShowSection('settings_div');flipMenu()">Settings</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a class="menu-item" onclick="ShowAbout()" >About</a>
+            </td>
+        </tr>
     </table>
 </div>
 
@@ -38,7 +55,7 @@
     <header class="inline-divs" id="logo_div">
         <table id="logo_table">
             <tr>
-                <td id="logo_cell"><img id="logo" src = Images/pacmanHeadLogo.png/></td>
+                <td id="logo_cell"><img id="logo" onclick="ShowSection('welcome_div')" src = Images/pacmanHeadLogo.png/></td>
                 <td><a class="ids"><span>Shalev Fainstein</span> 203676960</a></td>
                 <td>||</td>
                 <td><a class="ids"><span>Hagai Kalinhoff</span> 204383699</a></td>
@@ -52,24 +69,29 @@
     align-items: center;
     align-self: center;
     align-content: center;
-    text-align: -webkit-center;
-">
+    text-align: -webkit-center;">
 
         <div style="text-align: left">
-            <span id="menu-button" style="font-size:30px;cursor:pointer" onclick="flipMenu()"><span>&#9776; Menu</span></span>
+            <span class="upper_screen" id="menu-button" style="font-size:30px;cursor:pointer" onclick="flipMenu()"><span>&#9776; Menu</span></span>
         </div>
 
+        <br>
+
+        <div style="text-align: left">
+            <span class="upper_screen"><span id="upper_user">User not logged in</span></span>
+        </div>
 
         <!--     WELCOME DIV       -->
         <div id="welcome_div" class="content" >
             <div id="welcome_deiv2">
                 <img id="welcome_image" src = Images/welcome.png/>
                 <div id="buttons_div">
-                    <button id="sign-up button" class="welcome_buttons">Sign up</button>
-                    <button id="login button" class="welcome_buttons">Login</button>
+                    <button id="sign-up_button" class="welcome_buttons" onclick="ShowSection('signup_div')">Sign up</button>
+                    <button id="login_button" class="welcome_buttons" onclick="ShowSection('login_div')">Login</button>
                 </div>
             </div>
         </div>
+
 
         <!--      SIGNUP DIV      -->
         <div id="signup_div" class="content">
@@ -101,18 +123,35 @@
                         <input type="date" id="birthday" name="birthday" />
                     </div>
                     <div id="submit_button">
-                        <button type="submit">Submit</button>
+                        <button type="submit" >Submit</button>
+                    </div>
+                    <div id="register_back_button">
+                        <button onclick="ShowSection('welcome_div')">Back</button>
                     </div>
                 </form>
             </div>
-
         </div>
 
 
 
         <!--      LOGIN DIV      -->
         <div id="login_div" class="content">
-
+            <form name="register" id="login_form" style="align-self: center; text-align: left; width: 20%">
+                <div>
+                    <label for="login_username">Username</label>
+                    <input type="text" id="login_username" placeholder="Username" name="login_username" />
+                </div>
+                <div>
+                    <label for="login_password">Password</label>
+                    <input type="password" id="login_password" placeholder="Password" name="login_password"/>
+                </div>
+                <div id="login_submit_button">
+                    <button type="submit" onclick="changeUpperUser()">Log In</button>
+                </div>
+                <div id="login_back_button">
+                    <button onclick="ShowSection('welcome_div')">Back</button>
+                </div>
+            </form>
         </div>
 
 
@@ -182,7 +221,7 @@
 
 
 <script type="text/javascript" src="js/PacManJS.js"></script>
-<script type="text/javascript" src="js/register_handler.js"></script>
+<script type="text/javascript" src="js/users_handler.js"></script>
 
 </body>
 

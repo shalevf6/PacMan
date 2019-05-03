@@ -4,6 +4,7 @@ let registeredUsers = {
 let registerValidator;
 let loginValidator;
 
+document.getElementById("logout_button").style.display="none";
 
 $(document).ready(function() {
 
@@ -29,69 +30,70 @@ $(document).ready(function() {
 
 });
 
-    registerValidator = $('#register_form').validate({
-        rules : {
-            username : {
-                required : true,
-                notExist : true
-            },
-            password : {
-                required:  true,
-                passwordLength: true,
-                okPassword: true
-            },
-            fName : {
-                required: true,
-                lettersonly: true
-            },
-            lName: {
-                required: true,
-                lettersonly: true
-            },
-            email: {
-                required: true,
-                email: true
-            },
-            birthday : {
-                required: true
-            }
+registerValidator = $('#register_form').validate({
+    rules : {
+        register_username : {
+            required : true,
+            notExist : true
         },
-
-        messages: {
-            username: {
-                required: 'You must enter a non-existing username'
-            },
-            fName: {required: 'Please enter your First Name'},
-            lName: {required: 'Please enter your Last Name'},
-            email: {
-                required: 'Please enter your e-mail address',
-                email: 'You must insert a valid e-mail address'
-            }
+        register_password : {
+            required:  true,
+            passwordLength: true,
+            okPassword: true
+        },
+        fName : {
+            required: true,
+            lettersonly: true
+        },
+        lName: {
+            required: true,
+            lettersonly: true
+        },
+        email: {
+            required: true,
+            email: true
+        },
+        birthday : {
+            required: true
         }
+    },
 
-    });
+    messages: {
+        register_username: {
+            required: 'You must enter a non-existing username'
+        },
+        fName: {required: 'Please enter your First Name'},
+        lName: {required: 'Please enter your Last Name'},
+        email: {
+            required: 'Please enter your e-mail address',
+            email: 'You must insert a valid e-mail address'
+        }
+    },
+
+    submitHandler : function(form) {
+        let username = $('#register_username').val();
+        registeredUsers[username] = $('#register_password').val();
+        updateUpperUser(username);
+        clearForm(form.getAttribute('id'));
+        swal("Congrats!", "You Registered Successfully!", "success");
+        ShowSection("settings_div");
+    },
+
+    invalidHandler : function(form) {
+        swal("Oops!", "One of the parameters inserted is missing / incorrect", "error");
+    }
+});
 
 $(document).ready(function() {
-
-    $.validator.addMethod("exists", function(value, element) {
-        let valid = false;
-        let username =  $('#login_username').val();
-        if (username in registeredUsers) {
-            if (value == registeredUsers[username]) {
-                valid = true;
-            }
-        }
-        return this.optional(element) || valid;
-    });
 
     loginValidator = $('#login_form').validate({
         rules : {
             login_password : {
                 required: true,
+                // exists : true
             },
             login_username : {
-                required : true,
-                exists : true
+                required : true
             },
         },
 
@@ -101,11 +103,95 @@ $(document).ready(function() {
             },
             login_password: {
                 required: 'You must enter a valid password',
-                exists: 'The user name or the password are incorrect'
+                // exists: 'The user name or the password are incorrect'
             }
+        },
+
+        submitHandler : function(form) {
+            let username = $('#login_username').val();
+            let password = $('#login_password').val();
+            let valid = false;
+            if (username in registeredUsers) {
+                if (password === registeredUsers[username]) {
+                    valid = true;
+                }
+            }
+
+            // the user exists
+            if (valid) {
+                updateUpperUser(username);
+                clearForm(form.getAttribute('id'));
+                swal("Congrats!", "You Logged in Successfully!", "success");
+                ShowSection("settings_div");
+            }
+            // the user doesn't exist
+            else {
+                swal("Oops!", "The user name or the password are incorrect", "error");
+            }
+        },
+
+        invalidHandler : function(form) {
+            swal("Oops!", "One of the parameters inserted is missing / incorrect", "error");
         }
     });
 });
+
+/**
+ * changes the upper user's name, if logged in / Registered successfully
+ */
+function updateUpperUser(username) {
+    let upperUser = document.getElementById('upper_user');
+    upperUser.innerHTML = "Signed in as <b>" + username + "</b>";
+    document.getElementById("logout_button").style.display="block";
+}
+
+/**
+ * clears the given form
+ * @param formId - a given form's id
+ */
+function clearForm(formId) {
+    registerValidator.resetForm();
+    let formElements = document.getElementById(formId).elements;
+    for (let i=0; i < formElements.length; i++) {
+        let field_type = formElements[i].type.toLowerCase();
+        switch (field_type) {
+            case "text":
+                formElements[i].value = "";
+                break;
+            case "password":
+                formElements[i].value = "";
+                break;
+            case "date":
+                formElements[i].valueAsDate = null;
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+/**
+ * logs out the current logged in user
+ */
+function logout() {
+    swal({
+        title: "Are you sure you want to log out?",
+        text: "Last chance..",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+        .then((logout) => {
+            if (logout) {
+                swal("Logged out successfully!", {
+                    icon: "success",
+                });
+                ShowSection('welcome_div');
+                document.getElementById("logout_button").style.display="none";
+                document.getElementById('upper_user').innerHTML = "No user logged in";
+            }
+        });
+}
 
 
 

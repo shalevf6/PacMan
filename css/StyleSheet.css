@@ -73,6 +73,10 @@ body {
     font-size: 20px;
 }
 
+#logout_button_div {
+    padding-left: 20px;
+}
+
 #menu-button span{
     font-size: 40px;
 }

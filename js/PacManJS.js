@@ -7,6 +7,9 @@ var start_time;
 var time_elapsed;
 var interval;
 
+// menu state
+let menu_open = false;
+
 Start();
 
 function Start() {
@@ -165,6 +168,8 @@ function PageLoaded()
     ShowSection('welcome_div');
 }
 
+
+/************************   DIV CHANGING    **********************/
 function ShowSection(id)
 {
     //hide all sections
@@ -188,7 +193,21 @@ function ShowAbout() {
 return
 }
 
+/************************   MENU    **********************/
+/**
+ * method to flip the menu state
+ */
+function flipMenu(){
+    if (menu_open)
+        closeMenu();
+    else
+        openMenu();
+
+    menu_open = !menu_open;
+}
+
 function openMenu() {
+
     document.getElementById("side-menu").style.width = "250px";
     document.getElementById("main-wrapper").style.marginLeft = "250px";
 }

@@ -1,3 +1,8 @@
+/*TODO:
+    1. add error class which defines validations
+*/
+
+
 body {
     overflow-x: hidden;
     background-image: url("../Images/pacman-background.jpg");
@@ -190,4 +195,9 @@ canvas
 form div {
     display: block;
     padding-bottom: 5px;
+}
+
+form input {
+    display: block;
+    width: 100%;
 }

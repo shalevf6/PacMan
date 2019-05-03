@@ -67,6 +67,9 @@ $(document).ready(function() {
                 required: 'Please enter your e-mail address',
                 email: 'You must insert a valid e-mail address'
             }
+        },
+        submitHandler: function () {
+
         }
 
     });
@@ -106,8 +109,6 @@ $(document).ready(function() {
         }
     });
 });
-
-
 
 
 

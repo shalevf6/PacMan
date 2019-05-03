@@ -18,8 +18,8 @@
 
 <!-- SIDE MENU -->
 <div id="side-menu">
-    <a href="javascript:void(0)" id="closeMenu" onclick="closeMenu()">&times;</a>
-    <table align="center" border=1 frame=hsides rules=rows>
+    <a href="javascript:void(0)" id="closeMenu" onclick="flipMenu()">&times;</a>
+    <table border=1 frame=hsides rules=rows>
         <tr><td>
             <a class="menu-item" onclick="ShowSection('welcome_div')" >Welcome</a></td></tr>
         <tr><td>
@@ -48,66 +48,58 @@
 
 
     <!--        CHANGING DIVS CONTAINER  -->
-    <div id="main_container"  class="inline-divs">
+    <div id="main_container"  class="inline-divs" style="
+    align-items: center;
+    align-self: center;
+    align-content: center;
+    text-align: -webkit-center;
+">
 
-        <span id="menu-button" style="font-size:30px;cursor:pointer" onclick="openMenu()"><span>&#9776; Menu</span></span>
+        <div style="text-align: left">
+            <span id="menu-button" style="font-size:30px;cursor:pointer" onclick="flipMenu()"><span>&#9776; Menu</span></span>
+        </div>
+
 
         <!--     WELCOME DIV       -->
         <div id="welcome_div" class="content" >
-            <table id="welcome_buttons_table">
-                <tr id="welcome_row">
-                    <td colspan="2">
-                        <img id="welcome_image" src = Images/welcome.png/>
-                    </td>
-                </tr>
-                <tr>
-                    <td><a id="sign-up_button" href="#" class="welcome_buttons">Sign Up</a></td>
-                    <td><a id="login_button" href="#" class="welcome_buttons">Login</a></td>
-                </tr>
-            </table>
+            <div id="welcome_deiv2">
+                <img id="welcome_image" src = Images/welcome.png/>
+                <div id="buttons_div">
+                    <button id="sign-up button" class="welcome_buttons">Sign up</button>
+                    <button id="login button" class="welcome_buttons">Login</button>
+                </div>
+            </div>
         </div>
 
         <!--      SIGNUP DIV      -->
         <div id="signup_div" class="content">
 
             <div class="register_div">
-                <form name="register" id="register_form">
-                    <dl>
-                        <dt>
-                            <label for="username">Username</label>
-                        </dt>
-                        <dd><input type="text" id="username" placeholder="Username" name="username" /></dd>
-                    </dl>
-                    <dl>
-                        <dt>
-                            <label for="password">Password</label>
-                        </dt>
-                        <dd><input type="password" id="password" placeholder="Password" name="password" minlength="8" /></dd>
-                    </dl>
-                    <dl>
-                        <dt>
-                            <label for="fName">First Name</label>
-                        </dt>
-                        <dd><input type="text" id="fName" name="fName" minwords="1" /></dd>
-                    </dl>
-                    <dl>
-                        <dt>
-                            <label for="lName">Last Name</label>
-                        </dt>
-                        <dd><input type="text" id="lName" name="lName" minlength="1" minwords="1" /></dd>
-                    </dl>
-                    <dl>
-                        <dt>
-                            <label for="email">e-Mail</label>
-                        </dt>
-                        <dd><input type="text" id="email" name="email" /></dd>
-                    </dl>
-                    <dl>
-                        <dt>
-                            <label for="birthday">Birthday</label>
-                        </dt>
-                        <dd><input type="date" id="birthday" name="birthday" /></dd>
-                    </dl>
+                <form name="register" id="register_form" style="align-self: center; text-align: left; width: 20%">
+                    <div>
+                        <label for="username">Username</label>
+                        <input type="text" id="username" placeholder="Username" name="username" />
+                    </div>
+                    <div>
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Password" name="password" minlength="8" />
+                    </div>
+                    <div>
+                        <label for="fName">First Name</label>
+                        <input type="text" id="fName" name="fName"/>
+                    </div>
+                    <div>
+                        <label for="lName">Last Name</label>
+                        <input type="text" id="lName" name="lName" minlength="1"/>
+                    </div>
+                    <div>
+                        <label for="email">e-Mail</label>
+                        <input type="text" id="email" name="email" />
+                    </div>
+                    <div>
+                        <label for="birthday">Birthday</label>
+                        <input type="date" id="birthday" name="birthday" />
+                    </div>
                     <div id="submit_button">
                         <button type="submit">Submit</button>
                     </div>
@@ -190,7 +182,7 @@
 
 
 <script type="text/javascript" src="js/PacManJS.js"></script>
-<script text="text/javascript" src="js/register_handler.js"></script>
+<script type="text/javascript" src="js/register_handler.js"></script>
 
 </body>
 

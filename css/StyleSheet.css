@@ -1,0 +1,203 @@
+/*TODO:
+    1. add error class which defines validations
+*/
+
+
+body {
+    overflow-x: hidden;
+    background-image: url("../Images/pacman-background.jpg");
+    background-attachment: fixed;
+    background-size: 100%;
+}
+
+.content {
+    /*vertical-align: middle;*/
+    /*!*display: table-cell;*!*/
+    /*align-self: center;*/
+    /*align-items: center;*/
+}
+
+#logo_div, #footer_div {
+    height: 15%;
+    background: #5ee1a3;
+    z-index: 1;
+    font-size: 30px;
+    font-family: "Berlin Sans FB";
+    border-radius: 25px;
+    background-image: url("../Images/logo-footer-background.jpg");
+    background-attachment: fixed;
+}
+
+#logo_table {
+    padding-left: 150px;
+}
+
+#logo_table td {
+    padding-right: 50px;
+}
+#logo_div {
+    padding-left: 10px;
+}
+
+#logo_div span {
+    font-size: 40px;
+}
+
+#main_container {
+    height: 70%;
+    width: inherit;
+    background: #5ee1a3;
+}
+
+#footer_div {
+    padding-top: 10px;
+    text-align: center;
+}
+
+#logo_cell {
+    padding-left: 100px;
+    padding-right: 150px;
+}
+
+#logo
+{
+    width: 400px;
+    height: 105px;
+}
+
+#menu-button {
+    padding-left: 20px;
+}
+
+#menu-button span{
+    font-size: 40px;
+}
+
+canvas
+{
+    vertical-align: middle;
+    z-index: 0;
+}
+
+/* SIDE-MENU - START */
+
+.inline-divs {
+    width: 98%;
+    /*display: inline-block;*/
+    /*vertical-align: middle;*/
+}
+
+#side-menu {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+#side-menu a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 40px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+#side-menu a:hover {
+    color: #f1f1f1;
+}
+
+#side-menu #closeMenu {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+#main-wrapper {
+    transition: margin-left .5s;
+    padding: 16px;
+    width: 98%;
+}
+
+@media screen and (max-height: 450px) {
+    #side-menu {padding-top: 15px;}
+    #side-menu a {font-size: 18px;}
+}
+
+/* SIDE-MENU - END */
+
+/* WELCOME SCREEN - START */
+
+#welcome_div {
+    text-align: center;
+}
+
+.welcome_buttons {
+    -moz-box-shadow:inset 0px 1px 0px 0px #fff6af;
+    -webkit-box-shadow:inset 0px 1px 0px 0px #fff6af;
+    box-shadow:inset 0px 1px 0px 0px #fff6af;
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffec64), color-stop(1, #cc953d));
+    background:-moz-linear-gradient(top, #ffec64 5%, #cc953d 100%);
+    background:-webkit-linear-gradient(top, #ffec64 5%, #cc953d 100%);
+    background:-o-linear-gradient(top, #ffec64 5%, #cc953d 100%);
+    background:-ms-linear-gradient(top, #ffec64 5%, #cc953d 100%);
+    background:linear-gradient(to bottom, #ffec64 5%, #cc953d 100%);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffec64', endColorstr='#cc953d',GradientType=0);
+    background-color:#ffec64;
+    -moz-border-radius:16px;
+    -webkit-border-radius:16px;
+    border-radius:16px;
+    border:2px solid #ffaa22;
+    display:inline-block;
+    cursor:pointer;
+    color:#333333;
+    font-family:Arial;
+    font-size:50px;
+    font-weight:bold;
+    text-decoration:none;
+    text-shadow:0px 1px 0px #ffee66;
+    padding:32px 76px;
+    white-space: nowrap;
+    font-family: "Berlin Sans FB";
+}
+
+.welcome_buttons:hover {
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #cc953d), color-stop(1, #ffec64));
+    background:-moz-linear-gradient(top, #cc953d 5%, #ffec64 100%);
+    background:-webkit-linear-gradient(top, #cc953d 5%, #ffec64 100%);
+    background:-o-linear-gradient(top, #cc953d 5%, #ffec64 100%);
+    background:-ms-linear-gradient(top, #cc953d 5%, #ffec64 100%);
+    background:linear-gradient(to bottom, #cc953d 5%, #ffec64 100%);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#cc953d', endColorstr='#ffec64',GradientType=0);
+    background-color:#cc953d;
+}
+
+#welcome_buttons_table td {
+    padding-right: 100px;
+    padding-bottom: 50px;
+    font-family: "Berlin Sans FB";
+}
+
+#welcome_image {
+    width: 500px;
+    height: 300px;
+}
+
+
+form div {
+    display: block;
+    padding-bottom: 5px;
+}
+
+form input {
+    display: block;
+    width: 100%;
+}

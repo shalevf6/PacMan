@@ -204,8 +204,6 @@ function logout() {
 
 
 
-
-
 /**
  * once submit has been pressed
 

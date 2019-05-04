@@ -1,5 +1,5 @@
 let divs = [
-    'welcome_div', 'signup_div', 'login_div', 'settings_div', 'game_div'
+    'welcome_div', 'register_div', 'login_div', 'settings_div', 'game_div'
 ];
 
 
@@ -29,10 +29,49 @@ function ShowSection(id)
 
     //show only one section
     $('#' + id).show();
+
+    clearForm('register_form');
+    clearForm('login_form');
 }
 
 
-/************************   MENU    **********************/
+/************************   ABOUT MODAL WINDOW    **********************/
+
+// get the modal window
+let about_div = document.getElementById('about_div');
+
+// get the element that opens the modal
+let about_button = document.getElementById("about_button");
+
+// get the <span> element that closes the modal
+let close_modal_button = document.getElementById("close_modal_button");
+
+// when the user clicks the button, open the modal
+about_button.onclick = function() {
+    about_div.style.display = "block";
+    flipMenu();
+};
+
+// when the user clicks on <span> (x), close the modal
+close_modal_button.onclick = function() {
+    about_div.style.display = "none";
+};
+
+// when the user clicks anywhere outside of the modal, close the modal
+window.onclick = function(event) {
+    if (event.target === about_div) {
+        about_div.style.display = "none";
+    }
+};
+// when the user presses the ESC button, close tha modal
+$(document).keydown(function(event) {
+    if (event.keyCode === 27) {
+        $('#about_div').hide();
+    }
+});
+
+
+/************************   SIDE-MENU    **********************/
 /**
  * method to flip the menu state
  */

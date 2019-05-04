@@ -123,6 +123,7 @@ function Draw() {
 
 }
 
+
 function UpdatePosition() {
     board[shape.i][shape.j] = 0;
     var x = GetKeyPressed();

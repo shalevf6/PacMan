@@ -1,10 +1,11 @@
 let registeredUsers = {
     'a' : 'a'
 };
+
 let registerValidator;
 let loginValidator;
-let login_error_class; // TODO: ARRANGE ERROR AND VALID CLASSES - https://stackoverflow.com/questions/6168926/jquery-validation-how-to-make-fields-red
-let login_valid_class; // TODO: http://jsfiddle.net/wesley_murch/j3ddP/1/
+// let login_error_class; // TODO: ARRANGE ERROR AND VALID CLASSES - https://stackoverflow.com/questions/6168926/jquery-validation-how-to-make-fields-red
+// let login_valid_class; // TODO: http://jsfiddle.net/wesley_murch/j3ddP/1/
 
 document.getElementById("logout_button").style.display="none";
 
@@ -132,6 +133,14 @@ $(document).ready(function() {
 
         invalidHandler : function(form) {
             swal("Oops!", "One of the parameters inserted is missing / incorrect", "error");
+        },
+
+        highlight: function(element) {
+            $(element).parent().addClass("field-login_error_class");
+        },
+
+        unhighlight: function(element) {
+            $(element).parent().removeClass("login_error_class-error");
         }
     });
 });

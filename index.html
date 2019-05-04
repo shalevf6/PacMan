@@ -195,6 +195,21 @@
                     <label class="settings_labels" for="point_color_25">25 Points Ball </label>
                     <input type="color" name="point_color_25" id="point_color_25" value="#e52929">
                 </div>
+
+                <span class="settings_labels">Choose the keys which you will be using to move the player (arrow keys are default):</span>
+
+                <div>
+                    <button class="button_arrow" style="font-size:24px" id="pre_up" type="button"></button>
+                </div>
+                <div>
+                    <button class="button_arrow" style="font-size:24px" id="pre_left" type="button"><span class="fa fa-arrow-up"></span></button>
+                    <button class="button_arrow" style="font-size:24px" id="pre_down" type="button"></button>
+                    <button class="button_arrow" style="font-size:24px" id="pre_right" type="button"></button>
+                </div>
+                <div id="change_key_div" style="display: none">
+                    <input id="change_key_input" placeholder="Click here, then press a key." type="text">
+                </div>
+
                 <div id="random_button">
                     <button class="button_sub" id="random" type="button">Random</button>
                 </div>
@@ -256,6 +271,7 @@
 
 <script type="text/javascript" src="js/PacManJS.js"></script>
 <script type="text/javascript" src="js/users_handler.js"></script>
+<script type="text/javascript" src="js/settings_handler.js"></script>
 <script type="text/javascript" src="js/Navigation.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 

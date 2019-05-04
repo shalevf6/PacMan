@@ -3,6 +3,8 @@ let registeredUsers = {
 };
 let registerValidator;
 let loginValidator;
+let login_error_class; // TODO: ARRANGE ERROR AND VALID CLASSES - https://stackoverflow.com/questions/6168926/jquery-validation-how-to-make-fields-red
+let login_valid_class; // TODO: http://jsfiddle.net/wesley_murch/j3ddP/1/
 
 document.getElementById("logout_button").style.display="none";
 
@@ -26,8 +28,6 @@ $(document).ready(function() {
     $.validator.addMethod( "lettersonly", function( value, element ) {
         return this.optional( element ) || /^[a-z]+$/i.test( value );
     }, "Letters only please" );
-
-
 });
 
 registerValidator = $('#register_form').validate({
@@ -87,10 +87,11 @@ registerValidator = $('#register_form').validate({
 $(document).ready(function() {
 
     loginValidator = $('#login_form').validate({
+        errorClass: "login_error_class", // TODO : Arragne error and valid classes
+        validClass: "login_valid_class",
         rules : {
             login_password : {
                 required: true,
-                // exists : true
             },
             login_username : {
                 required : true
@@ -103,7 +104,6 @@ $(document).ready(function() {
             },
             login_password: {
                 required: 'You must enter a valid password',
-                // exists: 'The user name or the password are incorrect'
             }
         },
 
@@ -150,7 +150,10 @@ function updateUpperUser(username) {
  * @param formId - a given form's id
  */
 function clearForm(formId) {
-    registerValidator.resetForm();
+    if (formId === "register_form")
+        registerValidator.resetForm();
+    if (formId === "login_form")
+        loginValidator.resetForm();
     let formElements = document.getElementById(formId).elements;
     for (let i=0; i < formElements.length; i++) {
         let field_type = formElements[i].type.toLowerCase();

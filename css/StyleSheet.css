@@ -1,7 +1,10 @@
 /*TODO:
-    1. add error class which defines validations.
+    1. add error class which defines validations to login, register and settings forms.
     2. add error alert when accessing settings if not logged in yet.
     3. add error alert for already logged in and trying to log in / register.
+    4. add buttons for game movement for settings.
+    5. add reset function for settings window.
+    6. add design to upper logged in label.
 */
 
 /************************   GENERAL   **********************/
@@ -16,7 +19,6 @@ body {
 #main_container {
     height: 70%;
     width: inherit;
-    /*background: #f1f1f1;*/
 }
 
 canvas
@@ -292,6 +294,14 @@ canvas
 .settings_labels {
     font-size: 20px;
     font-family: "Bernard MT Condensed", serif;
+}
+
+.register_error_class {
+    color: red;
+}
+
+.register_valid_class {
+
 }
 
 /************************   REGISTER SCREEN   **********************/

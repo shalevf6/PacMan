@@ -154,8 +154,6 @@
             </form>
         </div>
 
-
-
         <!--      SETTINGS DIV      -->
         <div id="settings_div" class="content">
             <form name="settings_form" id="settings_form">
@@ -196,15 +194,21 @@
 
         <!--      GAME DIV      -->
         <div id="game_div" class="content">
-            SCORE:
-            <input id="lblScore" type="text"/>
-            <br/>
+            <div>
+                SCORE:
+                <input id="lblScore" type="text"/>
+                <br/>
 
-            TIME:
-            <input id="lblTime" type="text"/>
-            <br/>
-            <canvas id="canvas" height="600" width="600">
-            </canvas>
+                TIME:
+                <input id="lblTime" type="text"/>
+                <br/>
+            </div>
+
+            <div>
+                <canvas id="canvas"></canvas>
+            </div>
+
+
         </div>
     </div>
 

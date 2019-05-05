@@ -4,8 +4,9 @@ let registeredUsers = {
 
 let registerValidator;
 let loginValidator;
-// let login_error_class; // TODO: ARRANGE ERROR AND VALID CLASSES - https://stackoverflow.com/questions/6168926/jquery-validation-how-to-make-fields-red
-// let login_valid_class; // TODO: http://jsfiddle.net/wesley_murch/j3ddP/1/
+
+// to know if a user is logged in
+let loggedIn = false;
 
 document.getElementById("logout_button").style.display="none";
 
@@ -72,12 +73,17 @@ registerValidator = $('#register_form').validate({
     },
 
     submitHandler : function(form) {
-        let username = $('#register_username').val();
-        registeredUsers[username] = $('#register_password').val();
-        updateUpperUser(username);
-        clearForm(form.getAttribute('id'));
-        swal("Congrats!", "You Registered Successfully!", "success");
-        ShowSection("settings_div");
+        if (loggedIn)
+            swal("Oops!", "You need to log out before registering!", "error");
+        else {
+            let username = $('#register_username').val();
+            registeredUsers[username] = $('#register_password').val();
+            updateUpperUser(username);
+            clearForm(form.getAttribute('id'));
+            swal("Congrats!", "You Registered Successfully!", "success");
+            loggedIn = true;
+            ShowSection("settings_div");
+        }
     },
 
     invalidHandler : function(form) {
@@ -88,8 +94,6 @@ registerValidator = $('#register_form').validate({
 $(document).ready(function() {
 
     loginValidator = $('#login_form').validate({
-        errorClass: "login_error_class", // TODO : Arragne error and valid classes
-        validClass: "login_valid_class",
         rules : {
             login_password : {
                 required: true,
@@ -109,38 +113,35 @@ $(document).ready(function() {
         },
 
         submitHandler : function(form) {
-            let username = $('#login_username').val();
-            let password = $('#login_password').val();
-            let valid = false;
-            if (username in registeredUsers) {
-                if (password === registeredUsers[username]) {
-                    valid = true;
-                }
-            }
-
-            // the user exists
-            if (valid) {
-                updateUpperUser(username);
-                clearForm(form.getAttribute('id'));
-                swal("Congrats!", "You Logged in Successfully!", "success");
-                ShowSection("settings_div");
-            }
-            // the user doesn't exist
+            if (loggedIn)
+                swal("Oops!", "You need to log out before logging in!", "error");
             else {
-                swal("Oops!", "The user name or the password are incorrect", "error");
+                let username = $('#login_username').val();
+                let password = $('#login_password').val();
+                let valid = false;
+                if (username in registeredUsers) {
+                    if (password === registeredUsers[username]) {
+                        valid = true;
+                    }
+                }
+
+                // the user exists
+                if (valid) {
+                    updateUpperUser(username);
+                    clearForm(form.getAttribute('id'));
+                    swal("Congrats!", "You Logged in Successfully!", "success");
+                    loggedIn = true;
+                    ShowSection("settings_div");
+                }
+                // the user doesn't exist
+                else {
+                    swal("Oops!", "The user name or the password are incorrect", "error");
+                }
             }
         },
 
         invalidHandler : function(form) {
             swal("Oops!", "One of the parameters inserted is missing / incorrect", "error");
-        },
-
-        highlight: function(element) {
-            $(element).parent().addClass("field-login_error_class");
-        },
-
-        unhighlight: function(element) {
-            $(element).parent().removeClass("login_error_class-error");
         }
     });
 });
@@ -198,6 +199,7 @@ function logout() {
                 swal("Logged out successfully!", {
                     icon: "success",
                 });
+                loggedIn = false;
                 ShowSection('welcome_div');
                 document.getElementById("logout_button").style.display="none";
                 document.getElementById('upper_user').innerHTML = "No user logged in";

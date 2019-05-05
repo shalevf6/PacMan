@@ -1,8 +1,8 @@
 let CANVAS_CTX;
 
 /**************     BOARD SIZE SETTINGS     ****************/
-let BOARDER_WIDTH = 550;
-let BOARDER_HEIGHT = 550;
+let BOARDER_WIDTH = 750;
+let BOARDER_HEIGHT = 650;
 let LINE_SPAN_WIDTH = BOARDER_WIDTH/19;
 let LINE_SPAN_HEIGHT = BOARDER_HEIGHT/22;
 let BOARDER_WIDTH_DIFF = BOARDER_WIDTH-LINE_SPAN_WIDTH;
@@ -135,6 +135,13 @@ function drawBoard() {
             }
         }
     }
+
+    ctx.strokeStyle = 'white';
+    ctx.beginPath();
+    ctx.moveTo(8*LINE_SPAN_WIDTH, 9*LINE_SPAN_HEIGHT+2);
+    ctx.lineTo(7*LINE_SPAN_WIDTH+4*LINE_SPAN_WIDTH, 9*LINE_SPAN_HEIGHT + 2);
+    ctx.closePath();
+    ctx.stroke();
 
 /*
     // fill upper bounds

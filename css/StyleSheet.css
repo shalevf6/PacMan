@@ -1,9 +1,13 @@
 /*TODO:
-    1. add error class which defines validations
-    2. add changing logged in label on top of the screen
-    3. fix user and password check in user_handler.js
+    1. add error class which defines validations to login, register and settings forms.
+    2. add error alert when accessing settings if not logged in yet.
+    3. add error alert for already logged in and trying to log in / register.
+    4. add buttons for game movement for settings.
+    5. add reset function for settings window.
+    6. add design to upper logged in label.
 */
 
+/************************   GENERAL   **********************/
 
 body {
     overflow-x: hidden;
@@ -12,18 +16,24 @@ body {
     background-size: 100%;
 }
 
-.content {
-    /*vertical-align: middle;*/
-    /*!*display: table-cell;*!*/
-    /*align-self: center;*/
-    /*align-items: center;*/
+#main_container {
+    height: 70%;
+    width: inherit;
 }
+
+canvas
+{
+    vertical-align: middle;
+    z-index: 0;
+}
+
+/************************   HEADER, FOOTER   **********************/
 
 #logo_div, #footer_div {
     height: 15%;
     z-index: 1;
     font-size: 30px;
-    font-family: "Berlin Sans FB";
+    font-family: "Berlin Sans FB", serif;
     border-radius: 25px;
     background-image: url("../Images/logo-footer-background.jpg");
     background-attachment: fixed;
@@ -37,18 +47,13 @@ body {
 #logo_table td {
     padding-right: 50px;
 }
+
 #logo_div {
     padding-left: 10px;
 }
 
 #logo_div span {
     font-size: 40px;
-}
-
-#main_container {
-    height: 70%;
-    width: inherit;
-    background: #f1f1f1;
 }
 
 #footer_div {
@@ -68,6 +73,8 @@ body {
     cursor:pointer;
 }
 
+/************************   UPPER CONTENT   **********************/
+
 .upper_screen {
     padding-left: 20px;
     font-size: 20px;
@@ -77,13 +84,11 @@ body {
     font-size: 40px;
 }
 
-canvas
-{
-    vertical-align: middle;
-    z-index: 0;
+#logout_button_div {
+    padding-left: 20px;
 }
 
-/* SIDE-MENU - START */
+/************************   SIDE-MENU   **********************/
 
 .inline-divs {
     width: 98%;
@@ -138,9 +143,7 @@ canvas
     #side-menu a {font-size: 18px;}
 }
 
-/* SIDE-MENU - END */
-
-/* WELCOME SCREEN - START */
+/************************   WELCOME SCREEN   **********************/
 
 #welcome_div {
     text-align: center;
@@ -165,14 +168,13 @@ canvas
     display:inline-block;
     cursor:pointer;
     color:#333333;
-    font-family:Arial;
     font-size:50px;
     font-weight:bold;
     text-decoration:none;
     text-shadow:0px 1px 0px #ffee66;
     padding:32px 76px;
     white-space: nowrap;
-    font-family: "Berlin Sans FB";
+    font-family: "Berlin Sans FB", serif;
 }
 
 .welcome_buttons:hover {
@@ -189,7 +191,7 @@ canvas
 #welcome_buttons_table td {
     padding-right: 100px;
     padding-bottom: 50px;
-    font-family: "Berlin Sans FB";
+    font-family: "Berlin Sans FB", serif;
 }
 
 #welcome_image {
@@ -203,9 +205,115 @@ canvas
     margin-right: 50px;
 }
 
-#sign-up_button {
+#login_button {
     margin-right: 20px;
+    margin-left: 100px;
 }
+
+/************************   LOGIN SCREEN, REGISTER SCREEN, SETTINGS SCREEN   **********************/
+
+#login_back_button, #register_back_button {
+    padding-top: 10px;
+    padding-right: 12px;
+}
+
+#login_div, #register_div, #settings_div {
+    font-family: 'Open Sans Condensed', arial, sans, serif;
+    width: 500px;
+    padding: 30px;
+    background: #FFFFFF;
+    margin: 50px auto;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+    -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+    -webkit-box-shadow:  0px 0px 15px rgba(0, 0, 0, 0.22);
+    border-radius: 20px;
+}
+
+#login_div h2, #register_div h2, #settings_div h2{
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    background: #4D4D4D;
+    text-transform: uppercase;
+    font-family: 'Open Sans Condensed', sans-serif;
+    color: #797979;
+    font-size: 18px;
+    font-weight: 100;
+    padding: 20px;
+    margin: -30px -30px 30px -30px;
+}
+
+#login_div div input[type="text"],
+#login_div div input[type="password"],
+#register_div div input[type="text"],
+#register_div div input[type="date"],
+#register_div div input[type="password"],
+#settings_div div input[type="text"],
+#settings_div div input[type="color"],
+#settings_div div input[type="number"]
+{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    outline: none;
+    display: block;
+    width: 100%;
+    padding: 7px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    background: transparent;
+    margin-bottom: 10px;
+    font: 16px Arial, Helvetica, sans-serif;
+    height: 45px;
+}
+
+#login_submit_button button, #login_back_button button,
+#register_submit_button button, #register_back_button button,
+#submit_pre_game button, #random_button button{
+    -moz-box-shadow: inset 0px 1px 0px 0px #45D6D6;
+    -webkit-box-shadow: inset 0px 1px 0px 0px #45D6D6;
+    box-shadow: inset 0px 1px 0px 0px #45D6D6;
+    background-color: #2CBBBB;
+    border: 1px solid #27A0A0;
+    display: inline-block;
+    cursor: pointer;
+    color: #FFFFFF;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 14px;
+    padding: 8px 18px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+#login_submit_button button:hover, #login_back_button button:hover,
+#register_submit_button button:hover, #register_back_button button:hover,
+#submit_pre_game button:hover, #random_button button:hover{
+    background:linear-gradient(to bottom, #34CACA 5%, #30C9C9 100%);
+    background-color:#34CACA;
+}
+
+.settings_labels {
+    font-size: 20px;
+    font-family: "Bernard MT Condensed", serif;
+}
+
+.register_error_class {
+    color: red;
+}
+
+.register_valid_class {
+
+}
+
+/************************   REGISTER SCREEN   **********************/
+
+
+/************************   SETTINGS SCREEN   **********************/
+
+/*#settings_form {*/
+/*    background: darkolivegreen;*/
+/*}*/
+
+/************************   FORMS   **********************/
 
 form div {
     display: block;
@@ -215,4 +323,58 @@ form div {
 form input {
     display: block;
     width: 100%;
+}
+
+/************************   ABOUT MODAL   **********************/
+
+#about_div {
+    display: none;
+    position: fixed; /* Stay in place */
+    z-index: 3; /* Sit on top */
+    padding-top: 10%; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    margin: auto;
+    border: 1px solid #888;
+}
+
+#modal-content {
+    background-color: lightblue;
+    margin: auto;
+    padding: 20px;
+    border: 2px solid darkblue;
+    width: 50%;
+    border-radius: 10px;
+}
+
+#close_modal_button {
+    color: #aaaaaa;
+    font-size: 28px;
+    font-weight: bold;
+    top: 0;
+    margin-left: 99%;
+}
+
+#close_modal_button:hover,
+#close_modal_button:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.about_content {
+    font-family: "Berlin Sans FB", serif;
+}
+
+#about_base_content {
+    font-size: 20px;
+}
+
+.register_error_class {
+
 }

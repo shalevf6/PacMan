@@ -27,7 +27,7 @@
         </tr>
         <tr>
             <td>
-                <a class="menu-item" onclick="ShowSection('signup_div');flipMenu()">Register</a>
+                <a class="menu-item" onclick="ShowSection('register_div');flipMenu()">Register</a>
             </td>
         </tr>
         <tr>
@@ -42,7 +42,7 @@
         </tr>
         <tr>
             <td>
-                <a class="menu-item" onclick="ShowAbout()" >About</a>
+                <a class="menu-item" id="about_button">About</a>
             </td>
         </tr>
     </table>
@@ -74,122 +74,148 @@
         <div style="text-align: left">
             <span class="upper_screen" id="menu-button" style="font-size:30px;cursor:pointer" onclick="flipMenu()"><span>&#9776; Menu</span></span>
         </div>
-
         <br>
-
         <div style="text-align: left">
-            <span class="upper_screen"><span id="upper_user">User not logged in</span></span>
+            <div id="logout_button_div" class="upper_screen">
+                <button type="button" id="logout_button" onclick="logout()">Log Out</button>
+            </div>
+            <span class="upper_screen"><span id="upper_user">No user logged in</span></span>
         </div>
 
         <!--     WELCOME DIV       -->
         <div id="welcome_div" class="content" >
-            <div id="welcome_deiv2">
+            <div id="welcome_div2">
                 <img id="welcome_image" src = Images/welcome.png/>
                 <div id="buttons_div">
-                    <button id="sign-up_button" class="welcome_buttons" onclick="ShowSection('signup_div')">Sign up</button>
-                    <button id="login_button" class="welcome_buttons" onclick="ShowSection('login_div')">Login</button>
+                    <button type="button" id="login_button" class="welcome_buttons" onclick="ShowSection('login_div')">Login</button>
+                    <button type="button" id="sign-up_button" class="welcome_buttons" onclick="ShowSection('register_div')">Register</button>
+
                 </div>
             </div>
         </div>
 
 
-        <!--      SIGNUP DIV      -->
-        <div id="signup_div" class="content">
+        <!--      REGISTER DIV      -->
+        <div id="register_div" class="content">
+            <h2 id="register_header">Register</h2>
+            <form name="register" id="register_form" style="align-self: center; text-align: left;">
+                <div>
+                    <input type="text" id="register_username" placeholder="Username" name="register_username" />
+                </div>
+                <div>
+                    <input type="password" id="register_password" placeholder="Password" name="register_password" minlength="8" />
+                </div>
+                <div>
+                    <!--                    <label for="fName">First Name</label>-->
+                    <input type="text" id="fName" name="fName" placeholder="First Name"/>
+                </div>
+                <div>
+                    <!--                    <label for="lName">Last Name</label>-->
+                    <input type="text" id="lName" name="lName" minlength="1" placeholder="Last Name"/>
+                </div>
+                <div>
+                    <!--                    <label for="email">e-Mail</label>-->
+                    <input type="text" id="email" name="email" placeholder="e-Mail"/>
+                </div>
+                <div>
+                    <label for="birthday">Birthday</label>
+                    <input type="date" id="birthday" name="birthday" placeholder="Birthday"/>
+                </div>
+                <div id="register_submit_button">
+                    <button type="submit" >Submit</button>
+                </div>
+            </form>
 
-            <div class="register_div">
-                <form name="register" id="register_form" style="align-self: center; text-align: left; width: 20%">
-                    <div>
-                        <label for="username">Username</label>
-                        <input type="text" id="username" placeholder="Username" name="username" />
-                    </div>
-                    <div>
-                        <label for="password">Password</label>
-                        <input type="password" id="password" placeholder="Password" name="password" minlength="8" />
-                    </div>
-                    <div>
-                        <label for="fName">First Name</label>
-                        <input type="text" id="fName" name="fName"/>
-                    </div>
-                    <div>
-                        <label for="lName">Last Name</label>
-                        <input type="text" id="lName" name="lName" minlength="1"/>
-                    </div>
-                    <div>
-                        <label for="email">e-Mail</label>
-                        <input type="text" id="email" name="email" />
-                    </div>
-                    <div>
-                        <label for="birthday">Birthday</label>
-                        <input type="date" id="birthday" name="birthday" />
-                    </div>
-                    <div id="submit_button">
-                        <button type="submit" >Submit</button>
-                    </div>
-                    <div id="register_back_button">
-                        <button onclick="ShowSection('welcome_div')">Back</button>
-                    </div>
-                </form>
+            <div id="register_back_button">
+                <button type="button"  onclick="ShowSection('welcome_div');clearForm('register_form')">Back</button>
             </div>
         </div>
-
 
 
         <!--      LOGIN DIV      -->
         <div id="login_div" class="content">
-            <form name="register" id="login_form" style="align-self: center; text-align: left; width: 20%">
+            <h2 id="login_header">Log In</h2>
+            <form name="login" id="login_form" style="align-self: center; text-align: left;">
                 <div>
-                    <label for="login_username">Username</label>
-                    <input type="text" id="login_username" placeholder="Username" name="login_username" />
+                    <!--                    <label for="login_username">Username</label>-->
+                    <input type="text" id="login_username" placeholder="Username" name="login_username"/>
                 </div>
                 <div>
-                    <label for="login_password">Password</label>
+                    <!--                    <label for="login_password">Password</label>-->
                     <input type="password" id="login_password" placeholder="Password" name="login_password"/>
                 </div>
                 <div id="login_submit_button">
                     <button type="submit">Log In</button>
                 </div>
-                <div id="login_back_button">
-                    <button onclick="ShowSection('welcome_div')">Back</button>
-                </div>
             </form>
+
+            <div id="login_back_button">
+                <button type="button" onclick="ShowSection('welcome_div');clearForm('login_form')">Back</button>
+            </div>
         </div>
+
 
         <!--      SETTINGS DIV      -->
         <div id="settings_div" class="content">
-            <form name="settings_form" id="settings_form">
-                <h2>Game Settings</h2>
+            <h2 id="settings_header">Game Settings</h2>
+            <form name="settings_form" id="settings_form" style="align-self: center; text-align: center;">
+                <!--                <h2>Game Settings</h2>-->
                 <div>
-                    <label for="num_of_balls">Number of point balls
-                        <input name="num_of_balls" id="num_of_balls" placeholder="50-90" type="text">
+                    <label class="settings_labels" for="num_of_balls">Number of balls
+                        <input name="num_of_balls" id="num_of_balls" placeholder="50-90" type="number">
                     </label>
                 </div>
                 <div>
-                    <label for="num_of_enemies">Number of enemies
-                        <input name="num_of_enemies" id="num_of_enemies" placeholder="1-3" type="text">
+                    <label class="settings_labels" for="num_of_enemies">Number of enemies
+                        <input name="num_of_enemies" id="num_of_enemies" placeholder="1-3" type="number">
                     </label>
                 </div>
                 <div>
-                    <label for="game_time">Game time (sec)
-                        <input name="game_time" id="game_time" placeholder="60+" type="text">
+                    <label class="settings_labels" for="game_time">Game time (sec)
+                        <input name="game_time" id="game_time" placeholder="60+" type="number">
                     </label>
                 </div>
 
-                <h4>You may choose the colors of points balls below</h4>
+                <span class="settings_labels">Choose the colors of the different balls (each worth a different amount of points):</span>
+
+                <br>
+                <br>
+
                 <div>
-                    <label for="point_color_5">5 Points Ball  </label><input type="color" name="point_color_5" id="point_color_5" value="#ffffff">
+                    <label class="settings_labels" for="point_color_5">5 Points Ball  </label>
+                    <input type="color" name="point_color_5" id="point_color_5" value="#ffffff">
                 </div>
                 <div>
-                    <label for="point_color_15">15 Points Ball </label><input type="color" name="point_color_15" id="point_color_15" value="#14b716">
+                    <label class="settings_labels" for="point_color_15">15 Points Ball </label>
+                    <input type="color" name="point_color_15" id="point_color_15" value="#14b716">
                 </div>
                 <div>
-                    <label for="point_color_25">25 Points Ball </label><input type="color" name="point_color_25" id="point_color_25" value="#e52929">
+                    <label class="settings_labels" for="point_color_25">25 Points Ball </label>
+                    <input type="color" name="point_color_25" id="point_color_25" value="#e52929">
+                </div>
+
+                <span class="settings_labels">Choose the keys which you will be using to move the player (arrow keys are default):</span>
+
+                <div>
+                    <button class="button_arrow" style="font-size:24px" id="pre_up" type="button"></button>
                 </div>
                 <div>
+                    <button class="button_arrow" style="font-size:24px" id="pre_left" type="button"><span class="fa fa-arrow-up"></span></button>
+                    <button class="button_arrow" style="font-size:24px" id="pre_down" type="button"></button>
+                    <button class="button_arrow" style="font-size:24px" id="pre_right" type="button"></button>
+                </div>
+                <div id="change_key_div" style="display: none">
+                    <input id="change_key_input" placeholder="Click here, then press a key." type="text">
+                </div>
+
+                <div id="random_button">
                     <button class="button_sub" id="random" type="button">Random</button>
-                    <input class="button_sub" id="submit_pre_game" type="submit" value="Start!"></div>
+                </div>
+                <div id="submit_pre_game">
+                    <button class="button_sub" type="submit">Start!</button>
+                </div>
             </form>
         </div>
-
 
 
         <!--      GAME DIV      -->
@@ -224,9 +250,34 @@
 </div>
 
 
+<!--      ABOUT DIV      -->
+<div id="about_div">
+    <!-- Modal content -->
+    <div id="modal-content">
+        <span id="close_modal_button">&times;</span>
+        <p id="about_headline">
+        <h1 class="about_content"><u>About Us : Shalev Fainstein, Hagai Kalinhoff</u></h1>
+        </p>
+        <p id="about_names">
+        <h3 class="about_content"></h3>
+        </p>
+        <span class="about_content" id="about_base_content">
+                    We used the 'Validate' jQuery Plugin for validating the user input when a user registers or logs in to the site.
+                    <br>
+                    We used the following Templates: ........
+                    <br>
+                    The main issue we had difficulty solving is putting the HTML elements in the place we want them to be. We came
+                    to realise that if we put every HTML element in a div container, than it gets much easier to handle it.
+            </span>
+    </div>
+</div>
+
+
 <script type="text/javascript" src="js/PacManJS.js"></script>
 <script type="text/javascript" src="js/users_handler.js"></script>
+<script type="text/javascript" src="js/settings_handler.js"></script>
 <script type="text/javascript" src="js/Navigation.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 </body>
 

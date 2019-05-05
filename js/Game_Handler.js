@@ -136,6 +136,13 @@ function drawBoard() {
         }
     }
 
+    ctx.strokeStyle = 'white';
+    ctx.beginPath();
+    ctx.moveTo(8*LINE_SPAN_WIDTH, 9*LINE_SPAN_HEIGHT+2);
+    ctx.lineTo(7*LINE_SPAN_WIDTH+4*LINE_SPAN_WIDTH, 9*LINE_SPAN_HEIGHT + 2);
+    ctx.closePath();
+    ctx.stroke();
+
 /*
     // fill upper bounds
     ctx.fillStyle = 'red';

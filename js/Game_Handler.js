@@ -15,9 +15,19 @@ let SCORE = 0;
 
 /**************     PACMAN SETTINGS     ****************/
 let pacman = {};
+pacman.baseName = 'PACMAN';
+pacman.pacman_image = 2;
+pacman.direction = 'UP';
 let apple = {};
+apple.baseName = 'APPLE_';
+apple.apple_image = 1;
+apple.direction = 'UP';
+apple.eaten = false;
 let ghost1 = {};
+ghost1.baseName = 'GHOST1_';
+ghost1.direction = 'UP';
 let ghost2 = null;
+// ghost2.baseName = 'GHOST2_';
 let ghost3 = null;
 let keySettings;
 
@@ -47,12 +57,16 @@ if (!right_key)
  */
 function initGame() {
     initBoard();
-    init_balls();
-    drawBalls();
-    init_ghost();
-    drawGhost();
-    init_pacman();
-    set_interval();
+    pacman = {};
+    ghost1 = {};
+    ghost2 = null;
+    ghost3 = null;
+    apple = {};
+    LIVES = 3;
+    SCORE = 0;
+    initPacman();
+    initGhosts();
+    initApple();
 }
 
 
@@ -133,11 +147,6 @@ function initBoard() {
 
     setPointBalls();
     drawPoints();
-
-    initPacman();
-    drawPacman();
-
-
     setInterval(updatePositionPacman, 250);
 
     /**
@@ -149,6 +158,12 @@ function initBoard() {
             e.preventDefault();
         }
     }, false);
+    initPacman();
+    initGhosts();
+    initApple();
+    drawGhost(ghost1);
+    drawApple();
+    drawPacman();
 }
 
 /**
@@ -493,6 +508,8 @@ function initPacman() {
             pacman.direction = e.key;
     });
     let emptyCell = findRandomSpot(board_objects);
+    while (isCornerCell(emptyCell))
+        emptyCell = findRandomSpot(board_objects);
     board_objects[emptyCell.i][emptyCell.j] = 3;
     pacman.i = emptyCell.i;
     pacman.j = emptyCell.j;
@@ -544,6 +561,7 @@ function initApple() {
     }
 }
 
+
 function updateScore() {
     if (board_static[pacman.i][pacman.j] === 5 ){
         SCORE+=5;
@@ -559,7 +577,7 @@ function updateScore() {
     }
 }
 
-function drawPacman() {
+function drawPacman2() {
     let y = pacman.i * LINE_SPAN_HEIGHT + LINE_SPAN_HEIGHT*1.5;
     let x = pacman.j * LINE_SPAN_WIDTH + LINE_SPAN_WIDTH*1.5;
 
@@ -610,4 +628,88 @@ function draw(){
     drawPacman();
 
     $('#lblScore').val(SCORE.toString());
+
+/**
+ * draws a given ghost object on the canvas
+ * @param ghost - a given ghost object
+ */
+function drawGhost(ghost) {
+    let ctx = CANVAS_CTX;
+    let ghost_image = document.getElementById(getDirectionImage(ghost));
+    ctx.drawImage(ghost_image, 1.15 * LINE_SPAN_WIDTH + ghost.j * LINE_SPAN_WIDTH, 1.15 * LINE_SPAN_HEIGHT + ghost.i * LINE_SPAN_HEIGHT, 32, 32);
+}
+
+/**
+ * draws the pacman on the canvas
+ */
+function drawPacman() {
+    let ctx = CANVAS_CTX;
+    let i = getDirectionImage(pacman);
+    let pacman_image = document.getElementById(i);
+    ctx.drawImage(pacman_image, 1.1 * LINE_SPAN_WIDTH + pacman.j * LINE_SPAN_WIDTH, 1.1 * LINE_SPAN_HEIGHT + pacman.i * LINE_SPAN_HEIGHT, 32, 32);
+}
+
+/**
+ * draws the apple on the canvas
+ */
+function drawApple() {
+    let ctx = CANVAS_CTX;
+    let apple_image = document.getElementById('APPLE_' + apple.apple_image);
+    ctx.drawImage(apple_image, 1.5 * LINE_SPAN_WIDTH + apple.j * LINE_SPAN_WIDTH, 1.5 * LINE_SPAN_HEIGHT + apple.i * LINE_SPAN_HEIGHT, 30, 30);
+}
+
+/**
+ * gets the right direction image of a given pacman / ghost image
+ * @param image - a given image
+ */
+function getDirectionImage(image) {
+    // it's a pacman
+    if (image.baseName === 'PACMAN')
+        return 'PACMAN_' + getRealDirection(image.direction) + '_' + pacman.pacman_image;
+    // it's a ghost
+    else
+        return image.baseName + image.direction;
+}
+
+/**
+ * gets the real direction of a given key
+ * @param key - a given direction
+ */
+function getRealDirection(key) {
+    if (key === up_key)
+        return 'UP';
+    if (key === down_key)
+        return 'DOWN';
+    if (key === left_key)
+        return 'LEFT';
+    if (key === right_key)
+        return 'RIGHT';
+}
+
+/**
+ * checks whether a given cell is in the corner of the board
+ * @param cell - a given cell
+ */
+function isCornerCell(cell) {
+    return (cell[0] === 0 && cell[1] === 0) || (cell[0] === 0 && cell[1] === 16) || (cell[0] === 19 && cell[1] === 0) || (cell[0] === 19 && cell[1] === 19);
+}
+
+/**
+ * updates the id of the current apple image
+ */
+function appleInterval() {
+    if (apple.apple_image === 4)
+        apple.apple_image = 1;
+    else
+        apple.apple_image++;
+}
+
+/**
+ * updates the id of the current pacman image
+ */
+function pacmanInterval() {
+    if (pacman.pacman_image === 2)
+        pacman.pacman_image = 1;
+    else
+        pacman.pacman_image++;
 }

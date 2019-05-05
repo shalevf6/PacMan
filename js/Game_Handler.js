@@ -7,7 +7,7 @@ let LINE_SPAN_WIDTH = BOARDER_WIDTH/19;
 let LINE_SPAN_HEIGHT = BOARDER_HEIGHT/22;
 let BOARDER_WIDTH_DIFF = BOARDER_WIDTH-LINE_SPAN_WIDTH;
 let BOARDER_HEIGHT_DIFF = BOARDER_HEIGHT-LINE_SPAN_HEIGHT;
-let board_static = [];
+let board_static = []; /* 0- open, 1- block, 2-up only, 3- pacman, 4- monster home , 5- 5 point, 15- 15 point, 25- 25 point */
 let board_objects = [];
 let LIVES = 3;
 
@@ -15,6 +15,17 @@ let LIVES = 3;
 /**************     PACMAN SETTINGS     ****************/
 let pacman = {};
 
+
+/**************     POINTS SETTINGS     ****************/
+let ball_count=0;
+if (!ball_5_color)
+    ball_5_color  = 'yellow';
+if (!ball_15_color)
+    ball_15_color = 'white';
+if (!ball_25_color)
+    ball_25_color = 'red';
+if (!ball_amount)
+    ball_amount = 90;
 
 /**
  * disables the up, down and space keys to prevent unnecessary scrolling
@@ -26,6 +37,65 @@ window.addEventListener("keydown", function(e) {
     }
 }, false);
 
+
+function setPointBalls() {
+    let five_point = Math.floor(ball_amount*0.6);
+    let fifteen_point = Math.floor(ball_amount*0.3);
+    let twentyFive_point = Math.floor(ball_amount*0.1);
+    let free_spot;
+
+    while (ball_count < ball_amount){
+        if (five_point > 0){
+            free_spot = findRandomSpot(board_static);
+            board_static[free_spot.i][free_spot.j] = 5;
+            five_point--;
+            ball_count++;
+        }
+        if (fifteen_point > 0){
+            free_spot = findRandomSpot(board_static);
+            board_static[free_spot.i][free_spot.j] = 15;
+            fifteen_point--;
+            ball_count++;
+        }
+        if (twentyFive_point > 0){
+            free_spot = findRandomSpot(board_static);
+            board_static[free_spot.i][free_spot.j] = 25;
+            twentyFive_point--;
+            ball_count++;
+        }
+        if (five_point === 0 && ball_count<ball_amount){
+            five_point++;
+        }
+    }
+
+}
+
+function drawPoints() {
+    for (let i =0; i<board_static.length; i++){
+        for (let j=0; j<board_static.length; j++){
+            //changeColor(ctx, i);
+            if (board_static[i][j] === 5){
+                drawBall(i, j, ball_5_color);
+            }
+            else if (board_static[i][j] === 15){
+                drawBall(i, j, ball_15_color);
+            }
+            else if (board_static[i][j] === 25){
+                drawBall(i, j, ball_25_color);
+            }
+        }
+    }
+}
+
+function drawBall(i, j, color) {
+    let ctx = CANVAS_CTX;
+
+    ctx.beginPath();
+    ctx.arc(1.5*LINE_SPAN_WIDTH + j * LINE_SPAN_WIDTH, 1.5*LINE_SPAN_HEIGHT + i * LINE_SPAN_HEIGHT, 6, 0, 2 * Math.PI);
+    ctx.fillStyle = color;
+    ctx.fill();
+    ctx.closePath();
+}
 
 /**
  * function to init the entire board
@@ -40,6 +110,8 @@ function initBoard() {
     resetLives();
     setLogicBoard();
     drawBoard();
+    setPointBalls();
+    drawPoints();
 
 }
 
@@ -56,7 +128,7 @@ function setLogicBoard(){
     board_static[6] = [0,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,0];
     board_static[7] = [0,1,1,0,1,0,0,0,0,0,0,0,1,0,1,1,0];
     board_static[8] = [0,1,1,0,1,0,1,2,2,2,1,0,1,0,1,1,0];
-    board_static[9] = [0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0];
+    board_static[9] = [0,0,0,0,0,0,1,4,4,4,1,0,0,0,0,0,0];
     board_static[10] = [0,1,1,0,1,0,1,1,1,1,1,0,1,0,1,1,0];
     board_static[11] = [0,1,1,0,1,0,0,0,0,0,0,0,1,0,1,1,0];
     board_static[12] = [0,1,1,0,1,0,1,1,1,1,1,0,1,0,1,1,0];
@@ -77,7 +149,7 @@ function setLogicBoard(){
     board_objects[6] = [0,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,0];
     board_objects[7] = [0,1,1,0,1,0,0,0,0,0,0,0,1,0,1,1,0];
     board_objects[8] = [0,1,1,0,1,0,1,2,2,2,1,0,1,0,1,1,0];
-    board_objects[9] = [0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0];
+    board_objects[9] = [0,0,0,0,0,0,1,4,4,4,1,0,0,0,0,0,0];
     board_objects[10] = [0,1,1,0,1,0,1,1,1,1,1,0,1,0,1,1,0];
     board_objects[11] = [0,1,1,0,1,0,0,0,0,0,0,0,1,0,1,1,0];
     board_objects[12] = [0,1,1,0,1,0,1,1,1,1,1,0,1,0,1,1,0];
@@ -321,21 +393,22 @@ function roundRect(x, y, width, height, radius, fill, stroke) {
 }
 
 /**
- * function to find an empty spot in the board
- * @returns {number[]}
+ * function that will return an empty spot based on the board given
+ * @param board - given board
+ * @returns {{i: number, j: number}} - return object
  */
-function findRandomSpot(){
+function findRandomSpot(board){
     function findSpot(i){
-        return Math.floor((Math.random() * i) + 1);
+        return Math.floor(Math.random() * i);
     }
 
-    let i = findSpot(17);
-    let j = findSpot(20);
-    while (board_static[i][j] !== 1) {
-        i = findSpot(17);
-        j = findSpot(20);
+    let i = findSpot(20);
+    let j = findSpot(17);
+    while (board[i][j] !== 0) {
+        i = findSpot(20);
+        j = findSpot(17);
     }
-    return [i, j];
+    return {i: i, j: j};
 }
 
 /**

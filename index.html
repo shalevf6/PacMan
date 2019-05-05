@@ -75,6 +75,7 @@
         <div style="text-align: left">
             <span class="upper_screen" id="menu-button" style="font-size:30px;cursor:pointer" onclick="flipMenu()"><span>&#9776; Menu</span></span>
         </div>
+
         <br>
         <div style="text-align: left">
             <div id="logout_button_div" class="upper_screen">
@@ -218,21 +219,26 @@
 
         <!--      GAME DIV      -->
         <div id="game_div" class="content">
-            <div>
-                SCORE:
-                <input id="lblScore" type="text"/>
-                <br/>
-
-                TIME:
-                <input id="lblTime" type="text"/>
-                <br/>
+            <div id="game_screen">
+                <div id="game_top">
+                    <label class="game_labels" for="lblScore">SCORE :</label>
+                    <input class="game_inputs" id="lblScore" type="text" style="margin-right: 30px"/>
+                    <label class="game_labels" for="lblTime">TIME :</label>
+                    <input class="game_inputs" id="lblTime" type="text"/>
+                    <br/>
+                </div>
+                <div>
+                    <canvas id="canvas"></canvas>
+                </div>
+                <div id="game_bottom">
+                    <span class="game_labels">Lives : </span>
+                    <div id="lives">
+                        <span><i class="fa fa-heart fa_custom" id="heart_three"></i></span>
+                        <span><i class="fa fa-heart fa_custom" id="heart_two"></i></span>
+                        <span><i class="fa fa-heart fa_custom" id="heart_one"></i></span>
+                    </div>
+                </div>
             </div>
-
-            <div>
-                <canvas id="canvas"></canvas>
-            </div>
-
-
         </div>
     </div>
 </div>
@@ -241,9 +247,9 @@
 <!--      FOOTER      -->
 <div id="footer_wrapper">
     <footer id=footer_div class="inline-divs">
-        This website is a Web Design project.
+        <span>This website is a Web Design project.</span>
         <br>
-        Feel free to explore it and test its bounds!
+        <span>Feel free to explore it and test its bounds!</span>
     </footer>
 
 </div>

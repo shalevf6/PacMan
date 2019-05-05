@@ -19,19 +19,26 @@ function hideDivs(){
  */
 function ShowSection(id)
 {
-    if (!id in divs)
-        return;
+    // preventing from accessing settings window before logging in
+    if (id === 'settings_div' && !loggedIn) {
+        swal("Oops!", "You need to log in before accessing the settings", "error");
+    }
+    else {
+        if (!id in divs)
+            return;
 
-    hideDivs();
+        hideDivs();
 
-    if(menu_open)
-        closeMenu();
+        if (menu_open)
+            closeMenu();
 
-    //show only one section
-    $('#' + id).show();
+        //show only one section
+        $('#' + id).show();
 
-    clearForm('register_form');
-    clearForm('login_form');
+        clearForm('register_form');
+        clearForm('login_form');
+        clearSettings();
+    }
 }
 
 
@@ -63,6 +70,7 @@ window.onclick = function(event) {
         about_div.style.display = "none";
     }
 };
+
 // when the user presses the ESC button, close tha modal
 $(document).keydown(function(event) {
     if (event.keyCode === 27) {
@@ -80,15 +88,16 @@ function flipMenu(){
         closeMenu();
     else
         openMenu();
-
     menu_open = !menu_open;
 }
 
 function openMenu() {
     document.getElementById("side-menu").style.width = "250px";
     document.getElementById("main-wrapper").style.marginLeft = "250px";
+    document.getElementById("footer_wrapper").style.marginLeft = "250px";
 }
 function closeMenu() {
     document.getElementById("side-menu").style.width = "0";
     document.getElementById("main-wrapper").style.marginLeft= "0";
+    document.getElementById("footer_wrapper").style.marginLeft= "0";
 }

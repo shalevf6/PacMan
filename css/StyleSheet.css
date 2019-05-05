@@ -1,10 +1,5 @@
 /*TODO:
-    1. add error class which defines validations to login, register and settings forms.
-    2. add error alert when accessing settings if not logged in yet.
-    3. add error alert for already logged in and trying to log in / register.
-    4. add buttons for game movement for settings.
-    5. add reset function for settings window.
-    6. add design to upper logged in label.
+    1. fix footer to bottom.
 */
 
 /************************   GENERAL   **********************/
@@ -56,21 +51,30 @@ canvas
     font-size: 40px;
 }
 
+
+#logo_cell {
+padding-left: 100px;
+padding-right: 150px;
+}
+
+#logo
+{
+width: 400px;
+height: 105px;
+cursor:pointer;
+}
+
 #footer_div {
     padding-top: 10px;
     text-align: center;
 }
 
-#logo_cell {
-    padding-left: 100px;
-    padding-right: 150px;
-}
-
-#logo
-{
-    width: 400px;
-    height: 105px;
-    cursor:pointer;
+#footer_wrapper{
+    transition: margin-left .5s;
+    padding: 16px;
+    width: 98%;
+    bottom: 0;
+    position: relative;
 }
 
 /************************   UPPER CONTENT   **********************/
@@ -86,6 +90,36 @@ canvas
 
 #logout_button_div {
     padding-left: 20px;
+    margin-bottom: 20px;
+}
+
+#upper_user {
+    text-shadow: #e0e0e0 1px 1px 0, 2px 2px 2px rgba(206,89,55,0);
+    color: #616161;
+    background: #bababa;
+    border-radius: 20px;
+    padding: 5px;
+}
+
+#logout_button {
+    text-shadow: #a2a2a2 1px 1px 0, 2px 2px 2px rgba(206,89,55,0);
+    color: #0f141c;
+    background: #5c6e95;
+    border-radius: 28px;
+    font-family: Arial, serif;
+    font-size: 20px;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+}
+
+#logout_button:hover {
+    background: #225e86;
+    background-image: -webkit-linear-gradient(top, #3288c7, #266998);
+    background-image: -moz-linear-gradient(top, #3288c7, #266998);
+    background-image: -ms-linear-gradient(top, #3288c7, #266998);
+    background-image: -o-linear-gradient(top, #3288c7, #266998);
+    background-image: linear-gradient(to bottom, #3288c7, #266998);
+    text-decoration: none;
 }
 
 /************************   SIDE-MENU   **********************/
@@ -217,7 +251,7 @@ canvas
     padding-right: 12px;
 }
 
-#login_div, #register_div, #settings_div {
+.form_divs {
     font-family: 'Open Sans Condensed', arial, sans, serif;
     width: 500px;
     padding: 30px;
@@ -229,7 +263,7 @@ canvas
     border-radius: 20px;
 }
 
-#login_div h2, #register_div h2, #settings_div h2{
+.form_divs h2{
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     background: #4D4D4D;
@@ -242,14 +276,11 @@ canvas
     margin: -30px -30px 30px -30px;
 }
 
-#login_div div input[type="text"],
-#login_div div input[type="password"],
-#register_div div input[type="text"],
-#register_div div input[type="date"],
-#register_div div input[type="password"],
-#settings_div div input[type="text"],
-#settings_div div input[type="color"],
-#settings_div div input[type="number"]
+.form_divs div input[type="text"],
+.form_divs input[type="password"],
+.form_divs div input[type="date"],
+.form_divs div input[type="color"],
+.form_divs div input[type="number"]
 {
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -296,12 +327,12 @@ canvas
     font-family: "Bernard MT Condensed", serif;
 }
 
-.register_error_class {
+.error {
     color: red;
 }
 
-.register_valid_class {
-
+.button_images {
+    font-size:26px;
 }
 
 /************************   REGISTER SCREEN   **********************/

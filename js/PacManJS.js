@@ -10,7 +10,7 @@ var interval;
 // menu state
 let menu_open = false;
 
-Start();
+//Start();
 
 function Start() {
     board = new Array();
@@ -166,5 +166,6 @@ function UpdatePosition() {
 
 function PageLoaded()
 {
-    ShowSection('welcome_div');
+    ShowSection('game_div');
+    initBoard();
 }

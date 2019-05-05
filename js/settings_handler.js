@@ -69,6 +69,7 @@ settingsValidator = $('#settings_form').validate({
     submitHandler : function(form) {
         // TODO : REFER TO GAME SCREEN, WITH THE CURRENT SETTINGS
         ShowSection("game_div");
+        initBoard();
     },
 
     invalidHandler : function(form) {

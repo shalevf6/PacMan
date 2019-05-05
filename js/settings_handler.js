@@ -1,6 +1,20 @@
 
+/****************   SAVED SETTINGS  ****************/
+let up_key;
+let down_key;
+let left_key;
+let right_key;
+let ball_amount;
+let enemy_amount;
+let game_time;
+let ball_5_color;
+let ball_15_color;
+let ball_25_color;
+/**************** ---------------- *****************/
+
 let settingsValidator;
-let picked_key;
+let clicked_key;
+let picked_key = document.getElementById('new_key');
 
 $(document).ready(function() {
 
@@ -67,7 +81,13 @@ settingsValidator = $('#settings_form').validate({
     },
 
     submitHandler : function(form) {
-        // TODO : REFER TO GAME SCREEN, WITH THE CURRENT SETTINGS
+        ball_amount = document.getElementById('num_of_balls').value;
+        enemy_amount = document.getElementById('num_of_enemies').value;
+        game_time = document.getElementById('game_time').value;
+        ball_5_color = document.getElementById('point_color_5').value;
+        ball_15_color = document.getElementById('point_color_15').value;
+        ball_25_color = document.getElementById('point_color_25').value;
+        clearSettings();
         ShowSection("game_div");
         initBoard();
     },
@@ -80,8 +100,9 @@ settingsValidator = $('#settings_form').validate({
 // get the random button
 let random_button = document.getElementById('random_button');
 
-
-// when the user clicks the random button, fill randomly the inputs
+/**
+ * when the user clicks the random button, fill randomly the inputs
+ */
 random_button.onclick = function() {
     document.getElementById('point_color_5').value = getRandomColor();
     document.getElementById('point_color_15').value = getRandomColor();
@@ -102,4 +123,97 @@ function getRandomColor() { // TODO : add set random color from this link: https
         randomColor += letters[Math.floor(Math.random() * 16)];
     }
     return randomColor;
+}
+
+/**
+ * gets the key the user clicked to determine which key to replace
+ */
+document.getElementById('up_button').onclick = function() {
+    clicked_key = 'UP';
+};
+
+/**
+ * gets the key the user clicked to determine which key to replace
+ */
+document.getElementById('left_button').onclick = function() {
+    clicked_key = 'LEFT';
+};
+
+/**
+ * gets the key the user clicked to determine which key to replace
+ */
+document.getElementById('down_button').onclick = function() {
+    clicked_key = 'DOWN';
+};
+
+/**
+ * gets the key the user clicked to determine which key to replace
+ */
+document.getElementById('right_button').onclick = function() {
+    clicked_key = 'RIGHT';
+};
+
+/**
+ * sets a new key for the game controls
+ */
+picked_key.onkeydown = function (event) {
+    let new_key = event.key;
+    if (clicked_key == null)
+        swal("You must click on one of the direction buttons before inserting the new key", "", "error");
+    else {
+        picked_key.value = new_key;
+        swal({
+            title: "Are you sure you want to replace the " + clicked_key + " key to the " + new_key + " key?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((confirm_switch) => {
+                if (confirm_switch) {
+                    let replaced_key = false;
+                    if (clicked_key === "UP") {
+                        up_key = new_key;
+                        replaced_key = true;
+                    }
+                    if (clicked_key === "LEFT") {
+                        left_key = new_key;
+                        replaced_key = true;
+                    }
+                    if (clicked_key === "DOWN") {
+                        down_key = new_key;
+                        replaced_key = true;
+                    }
+                    if (clicked_key === "RIGHT") {
+                        right_key = new_key;
+                        replaced_key = true;
+                    }
+                    if (replaced_key) {
+                        swal("keys switched successfully!", {
+                            icon: "success",
+                        });
+                    }
+                }
+                picked_key.value = '';
+            });
+    }
+};
+
+/**
+ * clears the settings form
+ */
+function clearSettings() {
+    settingsValidator.resetForm();
+    let settingsFormElements = document.getElementById('settings_form').elements;
+    // num_of_balls value
+    settingsFormElements[0].value = "";
+    // num_of_enemies value
+    settingsFormElements[1].value = "";
+    // game_time value
+    settingsFormElements[2].value = "";
+    // point_color_5 value
+    settingsFormElements[3].value = "#ffffff";
+    // point_color_15 value
+    settingsFormElements[4].value = "#14b716";
+    // point_color_25 value
+    settingsFormElements[5].value = "#e52929";
 }

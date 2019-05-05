@@ -19,6 +19,7 @@ let apple = {};
 let ghost1 = {};
 let ghost2 = null;
 let ghost3 = null;
+let keySettings;
 
 
 /**************     POINTS SETTINGS     ****************/
@@ -32,19 +33,20 @@ if (!ball_25_color)
 if (!ball_amount)
     ball_amount = 90;
 
+if (!up_key)
+    up_key  = 'ArrowUp';
+if (!down_key)
+    down_key = 'ArrowDown';
+if (!left_key)
+    left_key = 'ArrowLeft';
+if (!right_key)
+    right_key = 'ArrowRight';
+
 /**
- * initializes a new game
+ * initializes a brand new game
  */
 function initGame() {
-    pacman = {};
-    ghost1 = {};
-    ghost2 = null;
-    ghost3 = null;
-    apple = {};
-    LIVES = 3;
-    SCORE = 0;
     initBoard();
-    drawBoardDoor();
     init_balls();
     drawBalls();
     init_ghost();
@@ -52,16 +54,6 @@ function initGame() {
     init_pacman();
     set_interval();
 }
-
-/**
- * disables the up, down and space keys to prevent unnecessary scrolling
- */
-window.addEventListener("keydown", function(e) {
-    // space and arrow keys
-    if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
-        e.preventDefault();
-    }
-}, false);
 
 
 function setPointBalls() {
@@ -132,13 +124,31 @@ function initBoard() {
     canvas.setAttribute('height', BOARDER_HEIGHT.toString());
 
     CANVAS_CTX = canvas.getContext('2d');
+    keySettings = [];
+    keySettings.push(up_key, down_key, left_key, right_key);
 
     resetLives();
     setLogicBoard();
     drawBoard();
+
     setPointBalls();
     drawPoints();
 
+    initPacman();
+    drawPacman();
+
+
+    setInterval(updatePositionPacman, 250);
+
+    /**
+     * disables the up, down and space keys to prevent unnecessary scrolling
+     */
+    window.addEventListener("keydown", function(e) {
+        // space and arrow keys
+        if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+            e.preventDefault();
+        }
+    }, false);
 }
 
 /**
@@ -478,10 +488,14 @@ function resetLives() {
  * initializes the pacman object
  */
 function initPacman() {
-    let emptyCell = findRandomSpot();
-    board_objects[emptyCell[0]][emptyCell[1]] = 3;
-    pacman.i = emptyCell[0];
-    pacman.j = emptyCell[1];
+    addEventListener('keydown', function(e){
+        if (keySettings.includes(e.key))
+            pacman.direction = e.key;
+    });
+    let emptyCell = findRandomSpot(board_objects);
+    board_objects[emptyCell.i][emptyCell.j] = 3;
+    pacman.i = emptyCell.i;
+    pacman.j = emptyCell.j;
 }
 
 /**
@@ -528,4 +542,72 @@ function initApple() {
         apple.i_last = -1;
         apple.j_last = -1;
     }
+}
+
+function updateScore() {
+    if (board_static[pacman.i][pacman.j] === 5 ){
+        SCORE+=5;
+        board_static[pacman.i][pacman.j] =0;
+    }
+    if (board_static[pacman.i][pacman.j] === 15 ){
+        SCORE+=15;
+        board_static[pacman.i][pacman.j] =0;
+    }
+    if (board_static[pacman.i][pacman.j] === 25 ){
+        SCORE+=25;
+        board_static[pacman.i][pacman.j] =0;
+    }
+}
+
+function drawPacman() {
+    let y = pacman.i * LINE_SPAN_HEIGHT + LINE_SPAN_HEIGHT*1.5;
+    let x = pacman.j * LINE_SPAN_WIDTH + LINE_SPAN_WIDTH*1.5;
+
+    context.beginPath();
+    context.arc(x, y, 10, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
+    context.lineTo(x, y);
+    context.fillStyle = 'purple'; //color
+    context.fill();
+    context.beginPath();
+    context.arc(x + 5, y - 15, 5, 0, 2 * Math.PI); // circle
+    context.fillStyle = "black"; //color
+    context.fill();
+}
+
+function updatePositionPacman(){
+    let direction = pacman.direction;
+    let x = pacman.j;
+    let y = pacman.i;
+    if (typeof direction !== 'undefined'){
+        if (y>0 && direction === up_key && board_static[--y][x] !== 1){
+            pacman.i--;
+        }
+        else if (y<19 && direction===down_key && board_static[++y][x]!==1){
+            pacman.i++;
+        }
+        else if (x>0 && direction===left_key && board_static[y][--x]!==1){
+            pacman.j--;
+        }
+        else if (x<19 && direction===right_key && board_static[y][++x]!==1){
+            pacman.j++;
+        }
+    }
+
+    updateScore();
+    draw()
+
+
+}
+
+
+/**
+ * function to draw all elements
+ */
+function draw(){
+    CANVAS_CTX.clearRect(0,0,BOARDER_WIDTH, BOARDER_HEIGHT);
+    drawBoard();
+    drawPoints();
+    drawPacman();
+
+    $('#lblScore').val(SCORE.toString());
 }

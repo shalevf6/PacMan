@@ -9,12 +9,22 @@ let BOARDER_WIDTH_DIFF = BOARDER_WIDTH-LINE_SPAN_WIDTH;
 let BOARDER_HEIGHT_DIFF = BOARDER_HEIGHT-LINE_SPAN_HEIGHT;
 let board_static = [];
 let board_objects = [];
-
+let LIVES = 3;
 
 
 /**************     PACMAN SETTINGS     ****************/
 let pacman = {};
 
+
+/**
+ * disables the up, down and space keys to prevent unnecessary scrolling
+ */
+window.addEventListener("keydown", function(e) {
+    // space and arrow keys
+    if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+        e.preventDefault();
+    }
+}, false);
 
 
 /**
@@ -27,6 +37,7 @@ function initBoard() {
 
     CANVAS_CTX = canvas.getContext('2d');
 
+    resetLives();
     setLogicBoard();
     drawBoard();
 
@@ -318,4 +329,41 @@ function findRandomSpot(){
         j = findSpot(20);
     }
     return [i, j];
+}
+
+/**
+ * removes one life from the screen
+ */
+function removeLife() {
+    let lifeToRemove;
+    if (LIVES === 3) {
+        lifeToRemove = document.getElementById('heart_three');
+        lifeToRemove.style.display = "none";
+        LIVES = 2;
+    }
+    else if (LIVES === 2) {
+        lifeToRemove = document.getElementById('heart_two');
+        lifeToRemove.style.display = "none";
+        LIVES = 1;
+    }
+    else if (LIVES === 1) {
+        lifeToRemove = document.getElementById('heart_one');
+        lifeToRemove.style.display = "none";
+        LIVES = 0;
+        // TODO : handle losing the game
+    }
+}
+
+/**
+ * resets the lives of the user
+ */
+function resetLives() {
+    let lifeToRemove;
+    lifeToRemove = document.getElementById('heart_three');
+    lifeToRemove.style.display = "inline-block";
+    lifeToRemove = document.getElementById('heart_two');
+    lifeToRemove.style.display = "inline-block";
+    lifeToRemove = document.getElementById('heart_one');
+    lifeToRemove.style.display = "inline-block";
+    LIVES = 3;
 }

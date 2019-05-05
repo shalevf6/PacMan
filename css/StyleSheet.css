@@ -31,7 +31,7 @@ canvas
     font-family: "Berlin Sans FB", serif;
     border-radius: 25px;
     background-image: url("../Images/logo-footer-background.jpg");
-    background-attachment: fixed;
+    /*background-attachment: fixed;*/
     background-repeat: round;
 }
 
@@ -94,19 +94,20 @@ cursor:pointer;
 }
 
 #upper_user {
-    text-shadow: #e0e0e0 1px 1px 0, 2px 2px 2px rgba(206,89,55,0);
-    color: #616161;
-    background: #bababa;
+    /*text-shadow: #a2a2a2 1px 1px 0, 2px 2px 2px rgba(206,89,55,0);*/
+    color: #0f141c;
+    background: #5c6e95;
     border-radius: 20px;
-    padding: 5px;
+    padding: 10px;
+    font-family: Elephant, serif;
 }
 
 #logout_button {
-    text-shadow: #a2a2a2 1px 1px 0, 2px 2px 2px rgba(206,89,55,0);
+    /*text-shadow: #a2a2a2 1px 1px 0, 2px 2px 2px rgba(206,89,55,0);*/
     color: #0f141c;
     background: #5c6e95;
     border-radius: 28px;
-    font-family: Arial, serif;
+    font-family: Elephant, serif;
     font-size: 20px;
     padding: 10px 20px 10px 20px;
     text-decoration: none;
@@ -335,15 +336,6 @@ cursor:pointer;
     font-size:26px;
 }
 
-/************************   REGISTER SCREEN   **********************/
-
-
-/************************   SETTINGS SCREEN   **********************/
-
-/*#settings_form {*/
-/*    background: darkolivegreen;*/
-/*}*/
-
 /************************   FORMS   **********************/
 
 form div {
@@ -406,6 +398,34 @@ form input {
     font-size: 20px;
 }
 
-.register_error_class {
+/************************   GAME SCREEN   **********************/
 
+#game_screen {
+    width: 700px;
+    height: 820px;
+    border-radius: 50px;
+    margin-top: 20px;
+    /*background: white;*/
+    background: linear-gradient(to bottom, rgba(69,72,77,1) 0%, rgb(57, 57, 57) 100%);
+    /*background: linear-gradient(to bottom, rgba(119,124,133,1) 0%,rgba(74,74,74,1) 100%);*/
+    /*background: linear-gradient(to bottom, rgba(90,93,100,1) 0%,rgba(56,56,56,1) 100%);*/
+}
+
+.game_labels {
+    font-weight: bold;
+    font-size: 20px;
+    font-family: "Berlin Sans FB", serif;
+    color: yellowgreen;
+}
+
+.game_inputs {
+    border-radius: 50px;
+}
+
+.fa_custom {
+    color: red;
+}
+
+#lives {
+    display: inline-block;
 }

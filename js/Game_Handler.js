@@ -10,11 +10,37 @@ let BOARDER_HEIGHT_DIFF = BOARDER_HEIGHT-LINE_SPAN_HEIGHT;
 let board_static = [];
 let board_objects = [];
 let LIVES = 3;
+let SCORE = 0;
 
 
 /**************     PACMAN SETTINGS     ****************/
 let pacman = {};
+let apple = {};
+let ghost1 = {};
+let ghost2 = null;
+let ghost3 = null;
 
+
+/**
+ * initializes a new game
+ */
+function initGame() {
+    pacman = {};
+    ghost1 = {};
+    ghost2 = null;
+    ghost3 = null;
+    apple = {};
+    LIVES = 3;
+    SCORE = 0;
+    initBoard();
+    drawBoardDoor();
+    init_balls();
+    drawBalls();
+    init_ghost();
+    drawGhost();
+    init_pacman();
+    set_interval();
+}
 
 /**
  * disables the up, down and space keys to prevent unnecessary scrolling
@@ -44,7 +70,7 @@ function initBoard() {
 }
 
 /**
- * function to set logic board
+ * function to set logic board - 20X17
  */
 function setLogicBoard(){
     board_static[0] = [0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0];
@@ -143,124 +169,124 @@ function drawBoard() {
     ctx.closePath();
     ctx.stroke();
 
-/*
-    // fill upper bounds
-    ctx.fillStyle = 'red';
-    next_x += 2*LINE_SPAN;
-    next_y += 2*LINE_SPAN;
-    ctx.fillRect(next_x, next_y, 2*LINE_SPAN, 2*LINE_SPAN);
-    next_x += 3*LINE_SPAN;
-    ctx.fillRect(next_x, next_y, 3*LINE_SPAN, 2*LINE_SPAN);
-    next_x += 4*LINE_SPAN;
-    ctx.fillRect(next_x, LINE_SPAN, LINE_SPAN, 3*LINE_SPAN);
-    next_x += 2*LINE_SPAN;
-    ctx.fillRect(next_x, next_y, 3*LINE_SPAN, 2*LINE_SPAN);
-    next_x += 4*LINE_SPAN;
-    ctx.fillRect(next_x, next_y, 2*LINE_SPAN, 2*LINE_SPAN);
+    /*
+        // fill upper bounds
+        ctx.fillStyle = 'red';
+        next_x += 2*LINE_SPAN;
+        next_y += 2*LINE_SPAN;
+        ctx.fillRect(next_x, next_y, 2*LINE_SPAN, 2*LINE_SPAN);
+        next_x += 3*LINE_SPAN;
+        ctx.fillRect(next_x, next_y, 3*LINE_SPAN, 2*LINE_SPAN);
+        next_x += 4*LINE_SPAN;
+        ctx.fillRect(next_x, LINE_SPAN, LINE_SPAN, 3*LINE_SPAN);
+        next_x += 2*LINE_SPAN;
+        ctx.fillRect(next_x, next_y, 3*LINE_SPAN, 2*LINE_SPAN);
+        next_x += 4*LINE_SPAN;
+        ctx.fillRect(next_x, next_y, 2*LINE_SPAN, 2*LINE_SPAN);
 
-    // fill medium up
-    ctx.fillStyle = 'green';
-    start_x = next_x = 2*LINE_SPAN;
-    start_y = next_y = 5*LINE_SPAN;
-    ctx.fillRect(next_x, next_y, 2*LINE_SPAN, LINE_SPAN);
-    next_y += 2*LINE_SPAN;
-    ctx.fillRect(next_x, next_y, 2*LINE_SPAN, 3*LINE_SPAN);
-    next_x += 3*LINE_SPAN;
-    next_y = start_y;
-    ctx.fillRect(next_x, next_y, LINE_SPAN, 5*LINE_SPAN);
-    next_x += LINE_SPAN;
-    next_y += 2*LINE_SPAN;
-    ctx.fillRect(next_x, next_y, 2*LINE_SPAN, LINE_SPAN);
-    next_x += LINE_SPAN;
-    next_y = start_y;
-    ctx.fillRect(next_x, next_y, 2*LINE_SPAN, LINE_SPAN);
-    next_x += 2*LINE_SPAN;
-    ctx.fillRect(next_x, next_y, LINE_SPAN, 3*LINE_SPAN); // middle
-    next_x += LINE_SPAN;
-    ctx.fillRect(next_x, next_y, 2*LINE_SPAN, LINE_SPAN);
-    next_y += 2*LINE_SPAN;
-    next_x += LINE_SPAN;
-    ctx.fillRect(next_x, next_y, 2*LINE_SPAN, LINE_SPAN);
-    next_x += 2*LINE_SPAN;
-    next_y = start_y;
-    ctx.fillRect(next_x, next_y, LINE_SPAN, 5*LINE_SPAN);
-    next_x += 2*LINE_SPAN;
-    ctx.fillRect(next_x, next_y, 2*LINE_SPAN, LINE_SPAN);
-    next_y += 2*LINE_SPAN;
-    ctx.fillRect(next_x, next_y, 2*LINE_SPAN, 3*LINE_SPAN);
+        // fill medium up
+        ctx.fillStyle = 'green';
+        start_x = next_x = 2*LINE_SPAN;
+        start_y = next_y = 5*LINE_SPAN;
+        ctx.fillRect(next_x, next_y, 2*LINE_SPAN, LINE_SPAN);
+        next_y += 2*LINE_SPAN;
+        ctx.fillRect(next_x, next_y, 2*LINE_SPAN, 3*LINE_SPAN);
+        next_x += 3*LINE_SPAN;
+        next_y = start_y;
+        ctx.fillRect(next_x, next_y, LINE_SPAN, 5*LINE_SPAN);
+        next_x += LINE_SPAN;
+        next_y += 2*LINE_SPAN;
+        ctx.fillRect(next_x, next_y, 2*LINE_SPAN, LINE_SPAN);
+        next_x += LINE_SPAN;
+        next_y = start_y;
+        ctx.fillRect(next_x, next_y, 2*LINE_SPAN, LINE_SPAN);
+        next_x += 2*LINE_SPAN;
+        ctx.fillRect(next_x, next_y, LINE_SPAN, 3*LINE_SPAN); // middle
+        next_x += LINE_SPAN;
+        ctx.fillRect(next_x, next_y, 2*LINE_SPAN, LINE_SPAN);
+        next_y += 2*LINE_SPAN;
+        next_x += LINE_SPAN;
+        ctx.fillRect(next_x, next_y, 2*LINE_SPAN, LINE_SPAN);
+        next_x += 2*LINE_SPAN;
+        next_y = start_y;
+        ctx.fillRect(next_x, next_y, LINE_SPAN, 5*LINE_SPAN);
+        next_x += 2*LINE_SPAN;
+        ctx.fillRect(next_x, next_y, 2*LINE_SPAN, LINE_SPAN);
+        next_y += 2*LINE_SPAN;
+        ctx.fillRect(next_x, next_y, 2*LINE_SPAN, 3*LINE_SPAN);
 
-    //fill monsters zone
-    ctx.fillStyle = 'yellow';
-    start_x = next_x = 7*LINE_SPAN;
-    start_y = next_y = 9*LINE_SPAN;
-    ctx.fillRect(next_x, next_y, LINE_SPAN, 3*LINE_SPAN);
-    next_y += 2*LINE_SPAN;
-    ctx.fillRect(next_x, next_y,5*LINE_SPAN, LINE_SPAN);
-    next_y = start_y;
-    next_x += 4*LINE_SPAN;
-    ctx.fillRect(next_x, next_y, LINE_SPAN, 3*LINE_SPAN);
-    ctx.strokeStyle = 'white';
-    ctx.lineWidth = '3';
-    ctx.beginPath();
-    ctx.moveTo(start_x+LINE_SPAN, start_y+2);
-    ctx.lineTo(start_x +4*LINE_SPAN, start_y+2);
-    ctx.closePath();
-    ctx.stroke();
+        //fill monsters zone
+        ctx.fillStyle = 'yellow';
+        start_x = next_x = 7*LINE_SPAN;
+        start_y = next_y = 9*LINE_SPAN;
+        ctx.fillRect(next_x, next_y, LINE_SPAN, 3*LINE_SPAN);
+        next_y += 2*LINE_SPAN;
+        ctx.fillRect(next_x, next_y,5*LINE_SPAN, LINE_SPAN);
+        next_y = start_y;
+        next_x += 4*LINE_SPAN;
+        ctx.fillRect(next_x, next_y, LINE_SPAN, 3*LINE_SPAN);
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = '3';
+        ctx.beginPath();
+        ctx.moveTo(start_x+LINE_SPAN, start_y+2);
+        ctx.lineTo(start_x +4*LINE_SPAN, start_y+2);
+        ctx.closePath();
+        ctx.stroke();
 
-    // fill middle down
-    ctx.fillStyle = 'green';
-    start_x = next_x = 2*LINE_SPAN;
-    start_y = next_y = 11*LINE_SPAN;
-    ctx.fillRect(next_x, next_y, 2*LINE_SPAN, 3*LINE_SPAN);
-    next_x += 3*LINE_SPAN;
-    ctx.fillRect(next_x, next_y, LINE_SPAN, 3*LINE_SPAN);
-    next_x += 2*LINE_SPAN;
-    ctx.fillRect(next_x, next_y+(2*LINE_SPAN), 5*LINE_SPAN, LINE_SPAN);
-    next_x += 6*LINE_SPAN;
-    ctx.fillRect(next_x, next_y, LINE_SPAN, 3*LINE_SPAN);
-    next_x += 2*LINE_SPAN;
-    ctx.fillRect(next_x, next_y, 2*LINE_SPAN, 3*LINE_SPAN);
+        // fill middle down
+        ctx.fillStyle = 'green';
+        start_x = next_x = 2*LINE_SPAN;
+        start_y = next_y = 11*LINE_SPAN;
+        ctx.fillRect(next_x, next_y, 2*LINE_SPAN, 3*LINE_SPAN);
+        next_x += 3*LINE_SPAN;
+        ctx.fillRect(next_x, next_y, LINE_SPAN, 3*LINE_SPAN);
+        next_x += 2*LINE_SPAN;
+        ctx.fillRect(next_x, next_y+(2*LINE_SPAN), 5*LINE_SPAN, LINE_SPAN);
+        next_x += 6*LINE_SPAN;
+        ctx.fillRect(next_x, next_y, LINE_SPAN, 3*LINE_SPAN);
+        next_x += 2*LINE_SPAN;
+        ctx.fillRect(next_x, next_y, 2*LINE_SPAN, 3*LINE_SPAN);
 
-    // fill lower down
-    start_x = next_x = 2*LINE_SPAN;
-    start_y = next_y += 4*LINE_SPAN;
-    ctx.fillRect(next_x, next_y, LINE_SPAN, LINE_SPAN);
-    next_x += LINE_SPAN;
-    ctx.fillRect(next_x, next_y, LINE_SPAN, 3*LINE_SPAN);
-    next_x += 2*LINE_SPAN;
-    ctx.fillRect(next_x, next_y, 3*LINE_SPAN, LINE_SPAN);
-    next_x += 4*LINE_SPAN;
-    ctx.fillRect(next_x, next_y-LINE_SPAN, LINE_SPAN, 2*LINE_SPAN); // middle
-    next_x += 2*LINE_SPAN;
-    ctx.fillRect(next_x, next_y, 3*LINE_SPAN, LINE_SPAN);
-    next_x += 4*LINE_SPAN;
-    ctx.fillRect(next_x, next_y, LINE_SPAN, 3*LINE_SPAN);
-    next_x += LINE_SPAN;
-    ctx.fillRect(next_x, next_y, LINE_SPAN, LINE_SPAN);
+        // fill lower down
+        start_x = next_x = 2*LINE_SPAN;
+        start_y = next_y += 4*LINE_SPAN;
+        ctx.fillRect(next_x, next_y, LINE_SPAN, LINE_SPAN);
+        next_x += LINE_SPAN;
+        ctx.fillRect(next_x, next_y, LINE_SPAN, 3*LINE_SPAN);
+        next_x += 2*LINE_SPAN;
+        ctx.fillRect(next_x, next_y, 3*LINE_SPAN, LINE_SPAN);
+        next_x += 4*LINE_SPAN;
+        ctx.fillRect(next_x, next_y-LINE_SPAN, LINE_SPAN, 2*LINE_SPAN); // middle
+        next_x += 2*LINE_SPAN;
+        ctx.fillRect(next_x, next_y, 3*LINE_SPAN, LINE_SPAN);
+        next_x += 4*LINE_SPAN;
+        ctx.fillRect(next_x, next_y, LINE_SPAN, 3*LINE_SPAN);
+        next_x += LINE_SPAN;
+        ctx.fillRect(next_x, next_y, LINE_SPAN, LINE_SPAN);
 
-    // fill lower 3 row down
-    ctx.fillStyle = 'red';
-    start_x = next_x = LINE_SPAN;
-    start_y = next_y += 2*LINE_SPAN;
-    ctx.fillRect(next_x, next_y, LINE_SPAN, LINE_SPAN);
-    next_x += 4*LINE_SPAN;
-    ctx.fillRect(next_x, next_y, LINE_SPAN, 2*LINE_SPAN);
-    next_x += 2*LINE_SPAN;
-    ctx.fillRect(next_x, next_y, 5*LINE_SPAN, LINE_SPAN);
-    next_x += 6*LINE_SPAN;
-    ctx.fillRect(next_x, next_y, LINE_SPAN, 2*LINE_SPAN);
-    next_x += 4*LINE_SPAN;
-    ctx.fillRect(next_x, next_y, LINE_SPAN, LINE_SPAN);
+        // fill lower 3 row down
+        ctx.fillStyle = 'red';
+        start_x = next_x = LINE_SPAN;
+        start_y = next_y += 2*LINE_SPAN;
+        ctx.fillRect(next_x, next_y, LINE_SPAN, LINE_SPAN);
+        next_x += 4*LINE_SPAN;
+        ctx.fillRect(next_x, next_y, LINE_SPAN, 2*LINE_SPAN);
+        next_x += 2*LINE_SPAN;
+        ctx.fillRect(next_x, next_y, 5*LINE_SPAN, LINE_SPAN);
+        next_x += 6*LINE_SPAN;
+        ctx.fillRect(next_x, next_y, LINE_SPAN, 2*LINE_SPAN);
+        next_x += 4*LINE_SPAN;
+        ctx.fillRect(next_x, next_y, LINE_SPAN, LINE_SPAN);
 
-    // fill final down
-    start_x = next_x = 2*LINE_SPAN;
-    start_y = next_y += 2*LINE_SPAN;
-    ctx.fillRect(next_x, next_y, 6*LINE_SPAN, LINE_SPAN);
-    next_x += 7*LINE_SPAN;
-    ctx.fillRect(next_x, next_y-LINE_SPAN, LINE_SPAN, 2*LINE_SPAN);
-    next_x += 2*LINE_SPAN;
-    ctx.fillRect(next_x, next_y, 6*LINE_SPAN, LINE_SPAN);
-*/
+        // fill final down
+        start_x = next_x = 2*LINE_SPAN;
+        start_y = next_y += 2*LINE_SPAN;
+        ctx.fillRect(next_x, next_y, 6*LINE_SPAN, LINE_SPAN);
+        next_x += 7*LINE_SPAN;
+        ctx.fillRect(next_x, next_y-LINE_SPAN, LINE_SPAN, 2*LINE_SPAN);
+        next_x += 2*LINE_SPAN;
+        ctx.fillRect(next_x, next_y, 6*LINE_SPAN, LINE_SPAN);
+    */
 }
 
 /**
@@ -373,4 +399,60 @@ function resetLives() {
     lifeToRemove = document.getElementById('heart_one');
     lifeToRemove.style.display = "inline-block";
     LIVES = 3;
+}
+
+/**
+ * initializes the pacman object
+ */
+function initPacman() {
+    let emptyCell = findRandomSpot();
+    board_objects[emptyCell[0]][emptyCell[1]] = 3;
+    pacman.i = emptyCell[0];
+    pacman.j = emptyCell[1];
+}
+
+/**
+ * initializes the ghosts objects
+ */
+function initGhosts(){
+    board_objects[0][0] = 6;
+    ghost1.id = 6;
+    ghost1.i = 0;
+    ghost1.j = 0;
+    ghost1.i_last = -1;
+    ghost1.j_last = -1;
+
+    if (enemy_amount > 1){
+        ghost2 = {};
+        board_objects[0][16] = 7;
+        ghost2.id = 7;
+        ghost2.i = 0;
+        ghost2.j = 16;
+        ghost2.i_last = -1;
+        ghost2.j_last = -1;
+    }
+
+    if (enemy_amount > 2){
+        ghost3 = {};
+        board_objects[19][0] = 8;
+        ghost3.id = 7;
+        ghost3.i = 19;
+        ghost3.j = 0;
+        ghost3.i_last = -1;
+        ghost3.j_last = -1;
+    }
+}
+
+/**
+ * initializes the apple object
+ */
+function initApple() {
+    if (!apple.eaten){
+        board_objects[19][19] = 50;
+        apple.id = 50;
+        apple.i = 19;
+        apple.j = 19;
+        apple.i_last = -1;
+        apple.j_last = -1;
+    }
 }

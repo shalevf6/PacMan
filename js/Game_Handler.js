@@ -1,10 +1,21 @@
 let CANVAS_CTX;
-let BOARDER_WIDTH = 475;
-let BOARDER_HEIGHT = 550;
-let LINE_SPAN = 25;
+let BOARDER_WIDTH = 665;
+let BOARDER_HEIGHT = 770;
+let LINE_SPAN = 35;
 let BOARDER_WIDTH_DIFF = BOARDER_WIDTH-LINE_SPAN;
 let BOARDER_HEIGHT_DIFF = BOARDER_HEIGHT-LINE_SPAN;
+let LIVES = 3;
 
+
+/**
+ * disables the up, down and space keys to prevent unnecessary scrolling
+ */
+window.addEventListener("keydown", function(e) {
+    // space and arrow keys
+    if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+        e.preventDefault();
+    }
+}, false);
 
 function initBoard() {
     let canvas = document.getElementById('canvas');
@@ -13,6 +24,7 @@ function initBoard() {
 
     CANVAS_CTX = canvas.getContext('2d');
 
+    resetLives();
     drawBoard();
 }
 
@@ -473,4 +485,41 @@ function roundRect(ctx, x, y, width, height, radius) {
     ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
     ctx.lineTo(x, y + radius);
     ctx.quadraticCurveTo(x, y, x + radius, y);
+}
+
+/**
+ * removes one life from the screen
+ */
+function removeLife() {
+    let lifeToRemove;
+    if (LIVES === 3) {
+        lifeToRemove = document.getElementById('heart_three');
+        lifeToRemove.style.display = "none";
+        LIVES = 2;
+    }
+    else if (LIVES === 2) {
+        lifeToRemove = document.getElementById('heart_two');
+        lifeToRemove.style.display = "none";
+        LIVES = 1;
+    }
+    else if (LIVES === 1) {
+        lifeToRemove = document.getElementById('heart_one');
+        lifeToRemove.style.display = "none";
+        LIVES = 0;
+        // TODO : handle losing the game
+    }
+}
+
+/**
+ * resets the lives of the user
+ */
+function resetLives() {
+    let lifeToRemove;
+    lifeToRemove = document.getElementById('heart_three');
+    lifeToRemove.style.display = "inline-block";
+    lifeToRemove = document.getElementById('heart_two');
+    lifeToRemove.style.display = "inline-block";
+    lifeToRemove = document.getElementById('heart_one');
+    lifeToRemove.style.display = "inline-block";
+    LIVES = 3;
 }

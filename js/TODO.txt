@@ -9,11 +9,14 @@ here are some stuff that has been done:
 
 here are some stuff needs to be done:
 MUST HAVE:
-1. audio JS file with audio. bring whatever you like, i trust you
-2. connect audio to game at decent places (collision, general, pacGotBusted and so...)
+1. audio JS file with audio. bring whatever you like, i trust you - V
+2. connect audio to game at decent places (collision, general, pacGotBusted and so...) - V
 3. add a running character. do it similarly to how the ghosts are moving (without manhattan) - it's all in Ghosts JS
 4. make sure that settings are well connected to Game_Handler.js (you can see that there is a section TMP SETTINGS - those need to be connected)
 5. fix pac-man landing right on points
+6. fix points on corners.
+7. fix timer.
+8. add out of seconds game over.
 
 NICE TO HAVE:
 1. pacman, ghosts and character moving intervals.
@@ -24,3 +27,12 @@ START WITH MUST HAVE.
 you don't have to finish with everything, we'll be in touch i might be back early tomorrow.
 
 yalla bye.
+
+ADDED:
+1. added Mute button.
+2. added Eat and caught sounds.
+3. added game sound.
+4. added time interval to create countdown timer in seconds.
+5. added game interval to end game if time ends.
+6. fixed game ending in countdown.
+7. transferred willBeDeleted important stuff and deleted it.

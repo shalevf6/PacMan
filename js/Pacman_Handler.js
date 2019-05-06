@@ -19,6 +19,9 @@ function initPacman() {
 }
 
 
+/**
+ * updates the pacman's position
+ */
 function updatePositionPacman(){
     let direction = pacman.direction;
     let x = pacman.j;
@@ -42,7 +45,7 @@ function updatePositionPacman(){
     board_objects[pacman.i][pacman.j] = 3;
 
     updateScore();
-    draw()
+    draw();
 }
 
 /**

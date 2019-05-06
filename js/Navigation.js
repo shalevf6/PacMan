@@ -3,6 +3,8 @@ let divs = [
 ];
 
 
+let menu_open = false;
+
 /**
  * this function will hide all div's
  */
@@ -39,6 +41,15 @@ function ShowSection(id)
         clearForm('login_form');
         clearSettings();
     }
+}
+
+/**
+ * the page's loaded when you enter the site
+ */
+function PageLoaded()
+{
+    ShowSection('game_div');
+    initGame();
 }
 
 

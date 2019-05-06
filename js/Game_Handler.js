@@ -1,5 +1,10 @@
+
+/**************     GENERAL SETTINGS     ****************/
 let CANVAS_CTX;
 let intervals;
+let start_time;
+let time_left;
+let interval;
 
 /**************     BOARD SIZE SETTINGS     ****************/
 let BOARDER_WIDTH = 1000;
@@ -25,6 +30,12 @@ let keySettings;
 let ALL_GHOSTS = [];
 
 
+/**************     SOUND SETTINGS     ****************/
+let game_music;
+let eat_sound;
+let caught_sound;
+
+
 /**************     TMP SETTINGS     ****************/
 // TODO: connect these settings to the settings handler
 let ball_count=0;
@@ -47,6 +58,7 @@ if (!right_key)
     right_key = 'ArrowRight';
 
 enemy_amount = 2;
+game_time = 10;
 
 /**
  * initializes a brand new game
@@ -65,10 +77,12 @@ function initGame() {
     intervals = {};
 
     initBoard();
+    initSound();
     setPointBalls();
     initPacman();
     initGhosts();
     initApple();
+    initTime();
 
     setGameIntervals();
 }
@@ -79,7 +93,28 @@ function initGame() {
 function setGameIntervals(){
     intervals.pacmanUpdate = setInterval(updatePositionPacman, 251);
     intervals.ghostUpdate = setInterval(updatePositionGhosts, 333);
+    intervals.appleUpdate = setInterval(updatePositionApple, 333);
     intervals.collisionDetection = setInterval(collisionDetection, 40);
+    intervals.timeInterval = setInterval(updateTime,250);
+    intervals.gameInterval = setInterval(updateGameState, 250);
+}
+
+/**
+ * checks if the timer hits zero and ends the game if it does
+ */
+function updateGameState() {
+    if (time_left <= 0) {
+        endGame();
+        window.clearIntervals(intervals.gameInterval);
+    }
+}
+
+/**
+ * initializes the time of the current game
+ */
+function initTime() {
+    start_time = Date.now();
+    $('#lblTime').val(game_time);
 }
 
 /*
@@ -144,6 +179,11 @@ function drawBall(i, j, color) {
     ctx.closePath();
 }
 
+function updateTime() {
+    let currentTime = Date.now();
+    time_left = Math.round(game_time - ((currentTime - start_time)) / 1000);
+    $('#lblTime').val(time_left);
+}
 
 /**
  * removes one life from the screen
@@ -186,31 +226,22 @@ function resetLives() {
  * function to update score status based on pacman movement
  */
 function updateScore() {
-    let scored = false;
     if (board_static[pacman.i][pacman.j] === 5 ){
         score+=5;
         board_static[pacman.i][pacman.j] =0;
-        scored = true;
+        playEat();
     }
     if (board_static[pacman.i][pacman.j] === 15 ){
         score+=15;
         board_static[pacman.i][pacman.j] =0;
-        scored = true;
+        playEat();
     }
     if (board_static[pacman.i][pacman.j] === 25 ){
         score+=25;
         board_static[pacman.i][pacman.j] =0;
-        scored = true;
+        playEat();
     }
-
-    if (scored)
-        document.getElementById("eat").pause();
-        document.getElementById("eat").play();
 }
-
-
-
-
 
 /**
  * function to draw all elements
@@ -221,6 +252,8 @@ function draw() {
     drawPoints();
     drawPacman();
     drawGhosts();
+    drawApple();
+    initGameMusic();
 
     $('#lblScore').val(score.toString());
 }
@@ -233,35 +266,6 @@ function drawGhosts() {
         if (element !== undefined)
             drawGhost(element);
     });
-}
-
-
-/**
- * initializes the apple object
- */
-function initApple() {
-    apple = {};
-    apple.baseName = 'APPLE_';
-    apple.apple_image = 1;
-    apple.direction = 'UP';
-    apple.eaten = false;
-    if (!apple.eaten){
-        board_objects[19][19] = 50;
-        apple.id = 50;
-        apple.i = 19;
-        apple.j = 19;
-        apple.i_last = -1;
-        apple.j_last = -1;
-    }
-}
-
-/**
- * draws the apple on the canvas
- */
-function drawApple() {
-    let ctx = CANVAS_CTX;
-    let apple_image = document.getElementById('APPLE_' + apple.apple_image);
-    ctx.drawImage(apple_image, 1.5 * LINE_SPAN_WIDTH + apple.j * LINE_SPAN_WIDTH, 1.5 * LINE_SPAN_HEIGHT + apple.i * LINE_SPAN_HEIGHT, 30, 30);
 }
 
 /**
@@ -324,15 +328,19 @@ function collisionDetection() {
             return;
 
         if (ghost.i === pacman.i
-        && ghost.j === pacman.j){
+            && ghost.j === pacman.j){
             score -= 10;
             pacGotBusted();
         }
     })
 }
 
+/**
+ * ends the current game
+ */
 function endGame() {
-
+    clearIntervals();
+    stopGameMusic();
 }
 
 /**
@@ -340,7 +348,14 @@ function endGame() {
  */
 function clearIntervals(){
     Object.keys(intervals).forEach(function (key, index) {
-        clearInterval(intervals[key]);
+        // in case the game really ended
+        if(lives === 0 || time_left <= 0) {
+            clearInterval(intervals[key]);
+        }
+        // in case the pacman just got busted
+        else if (key !== "timeInterval" && key !== "gameInterval") {
+            clearInterval(intervals[key]);
+        }
     });
 }
 
@@ -352,6 +367,7 @@ function pacGotBusted() {
     clearIntervals();
     initPacman();
     initGhosts();
+    stopGameMusic();
 
     document.getElementById('caught').play();
 

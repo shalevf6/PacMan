@@ -226,10 +226,9 @@
                     <input class="game_inputs" id="lblScore" type="text" style="margin-right: 30px"/>
                     <label class="game_labels" for="lblTime">TIME :</label>
                     <input class="game_inputs" id="lblTime" type="text" style="margin-right: 30px"/>
-                    <label id="volume_off_label" class="game_labels" style="margin-right: 10px">SOUND OFF :</label>
-                    <button id="volume_off_button"  class="game_inputs" type="button"><span class="fa fa-volume-off"></span></button>
-                    <label id="volume_on_label" class="game_labels" style="display: none; margin-right: 10px;">SOUND ON :</label>
-                    <button id="volume_on_button" class="game_inputs" type="button" style="display: none"><span class="fa fa-volume-up"></span></button>
+                    <label class="game_labels" id="music_label"  style="margin-right: 10px">SOUND :</label>
+                    <button id="music_off_button"  class="game_inputs" type="button"><span class="fa fa-volume-up"></span></button>
+                    <button id="music_on_button" class="game_inputs" type="button" style="display: none"><span class="fa fa-volume-off"></span></button>
                     <br/>
                     <br>
                 </div>
@@ -270,6 +269,7 @@
                 <img id="APPLE_4" src="Images/apple4.png" style="display: none">
                 <audio id="caught" src="Audio/caught.wav" style="display: none"></audio>
                 <audio id="eat" src="Audio/eat.wav" style="display: none"></audio>
+                <audio id="game_music" src="Audio/game_music1.mp3" style="display: none"></audio>
             </div>
         </div>
     </div>
@@ -309,16 +309,16 @@
     </div>
 </div>
 
-
-<script type="text/javascript" src="js/WillBeDeleted.js"></script>
 <script type="text/javascript" src="js/Users_Handler.js"></script>
 <script type="text/javascript" src="js/Settings_Handler.js"></script>
+<script type="text/javascript" src="js/Music_Handler.js"></script>
 <script type="text/javascript" src="js/Navigation.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="js/Game_Handler.js"></script>
 <script src="js/Ghosts_Handler.js"></script>
 <script src="js/Board_Handler.js"></script>
 <script src="js/Pacman_Handler.js"></script>
+<script src="js/Apple_Handler.js"></script>
 
 </body>
 

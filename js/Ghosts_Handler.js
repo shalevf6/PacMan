@@ -132,6 +132,15 @@ function updatePositionGhosts(){
             chosenMove.y = element.i;
         }
 
+        // to determine which ghost image should be draw
+        if (element.i < chosenMove.y)
+            element.direction = 'DOWN';
+        if (element.i > chosenMove.y)
+            element.direction = 'UP';
+        if (element.j < chosenMove.x)
+            element.direction = 'RIGHT';
+        if (element.j > chosenMove.x)
+            element.direction = 'LEFT';
 
         board_objects[element.i][element.j] = 0;
 

@@ -88,7 +88,7 @@ $(document).ready(function() {
             ball_25_color = document.getElementById('point_color_25').value;
             clearSettings();
             ShowSection("game_div");
-            initGame();
+            initGame(false);
         },
 
         invalidHandler : function(form) {

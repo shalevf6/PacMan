@@ -67,7 +67,7 @@ function setDefaults(){
 /**
  * initializes a brand new game
  */
-function initGame() {
+function initGame(continued) {
     game_on = true;
 
     let canvas = document.getElementById('canvas');
@@ -81,7 +81,11 @@ function initGame() {
 
     lives = 3;
     score = 0;
-    new_time_bonus_bar = Math.round(game_time * 0.5);
+    if (continued) {
+        game_time = new_time_bonus_bar * 2;
+    }
+    else
+        new_time_bonus_bar = Math.round(game_time * 0.5);
     ball_count = 0;
 
     intervals = {};

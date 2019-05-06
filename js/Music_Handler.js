@@ -6,9 +6,8 @@ function initSound() {
     game_music.loop = true;
     eat_points_sound = document.getElementById("eat_points");
     eat_apple_sound = document.getElementById("eat_apple");
-    eat_extra_sound = document.getElementById("eat_extra");
+    time_bonus_sound = document.getElementById("eat_extra");
     caught_sound = document.getElementById("caught");
-    initGameMusic();
 }
 
 /**
@@ -17,7 +16,7 @@ function initSound() {
 document.getElementById("music_off_button").onclick = function() {
     eat_points_sound.muted = true;
     eat_apple_sound.muted = true;
-    eat_extra_sound.muted = true;
+    time_bonus_sound.muted = true;
     caught_sound.muted = true;
     game_music.muted = true;
     this.style.display = "none";
@@ -30,7 +29,7 @@ document.getElementById("music_off_button").onclick = function() {
 document.getElementById("music_on_button").onclick = function() {
     eat_points_sound.muted = false;
     eat_apple_sound.muted = false;
-    eat_extra_sound.muted = false;
+    time_bonus_sound.muted = false;
     caught_sound.muted = false;
     game_music.muted = false;
     this.style.display = "none";
@@ -38,9 +37,9 @@ document.getElementById("music_on_button").onclick = function() {
 };
 
 /**
- * plays an eat sound
+ * plays a game sound
  */
-function playEat(eatSound) {
+function playSound(eatSound) {
     eatSound.pause();
     eatSound.currentTime = 0;
     eatSound.play();
@@ -49,7 +48,7 @@ function playEat(eatSound) {
 /**
  * plays the game music
  */
-function initGameMusic() {
+function playGameMusic() {
     game_music.play();
 }
 

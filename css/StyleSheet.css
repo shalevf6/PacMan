@@ -429,6 +429,7 @@ form input {
 
 #lives {
     display: inline-block;
+    font-size: 25px;
 }
 
 #music_off_button, #music_on_button {

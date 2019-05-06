@@ -12,14 +12,16 @@ let LINE_SPAN_HEIGHT = BOARDER_HEIGHT/22;
 let BOARDER_WIDTH_DIFF = BOARDER_WIDTH-LINE_SPAN_WIDTH;
 let BOARDER_HEIGHT_DIFF = BOARDER_HEIGHT-LINE_SPAN_HEIGHT;
 let board_static = []; /* 0- open, 1- block, 2-up only, 3- pacman, 4- monster home , 5- 5 point, 15- 15 point, 25- 25 point */
-let board_objects = []; /* 0- open, 1- block, 2-up only, 3- pacman, 6,7,8- ghosts */
+let board_objects = []; /* 0- open, 1- block, 2-up only, 3- pacman, 6,7,8- ghosts, 50 - apple, 9 - time_bonus*/
 let lives = 3;
 let score = 0;
+let new_time_bonus_bar;
 
 
 /**************     PACMAN SETTINGS     ****************/
 let pacman;
 let apple;
+let time_bonus;
 let ghost1;
 let ghost2;
 let ghost3;
@@ -33,7 +35,7 @@ let game_music;
 let eat_points_sound;
 let caught_sound;
 let eat_apple_sound;
-let eat_extra_sound;
+let time_bonus_sound;
 
 
 /**************     TMP SETTINGS     ****************/
@@ -79,6 +81,7 @@ function initGame() {
 
     lives = 3;
     score = 0;
+    new_time_bonus_bar = Math.round(game_time * 0.5);
     ball_count = 0;
 
     intervals = {};
@@ -89,7 +92,9 @@ function initGame() {
     initPacman();
     initGhosts();
     initApple();
+    initTimeBonus();
     initTime();
+    playGameMusic();
 
     setGameIntervals();
 }
@@ -228,17 +233,17 @@ function updateScore() {
     if (board_static[pacman.i][pacman.j] === 5 ){
         score+=5;
         board_static[pacman.i][pacman.j] =0;
-        playEat(eat_points_sound);
+        playSound(eat_points_sound);
     }
     if (board_static[pacman.i][pacman.j] === 15 ){
         score+=15;
         board_static[pacman.i][pacman.j] =0;
-        playEat(eat_points_sound);
+        playSound(eat_points_sound);
     }
     if (board_static[pacman.i][pacman.j] === 25 ){
         score+=25;
         board_static[pacman.i][pacman.j] =0;
-        playEat(eat_points_sound);
+        playSound(eat_points_sound);
     }
 }
 
@@ -252,6 +257,7 @@ function draw() {
     drawPacman();
     drawGhosts();
     drawApple();
+    drawTimeBonus();
 
     $('#lblScore').val(score.toString());
 }
@@ -323,6 +329,8 @@ function collisionDetection() {
     if (game_time === 0){
         endGame();
     }
+    if (game_time === new_time_bonus_bar)
+        time_bonus.show = true;
     ALL_GHOSTS.forEach(function (ghost) {
         if (ghost === undefined)
             return;
@@ -335,11 +343,24 @@ function collisionDetection() {
             pacGotBusted();
         }
     });
-    if (apple.i === pacman.i && apple.j === pacman.j) {
-        score += 50;
-        apple.eaten = true;
-        playEat(eat_apple_sound);
-    }
+
+    // handles catching the apple
+    if (!apple.eaten)
+        if (apple.i === pacman.i && apple.j === pacman.j) {
+            board_objects[apple.i][apple.j] = 0;
+            score += 50;
+            apple.eaten = true;
+            playSound(eat_apple_sound);
+        }
+
+    // handles catching the time bonus
+    if (time_bonus.show)
+        if (time_bonus.i === pacman.i && time_bonus.j === pacman.j) {
+            board_static[time_bonus.i][time_bonus.j] = 0;
+            game_time+=20;
+            time_bonus.show = false;
+            playSound(time_bonus_sound);
+        }
 }
 
 /**
@@ -406,7 +427,7 @@ function pacGotBusted() {
     initGhosts();
     stopGameMusic();
 
-    document.getElementById('caught').play();
+    playSound(caught_sound);
 
     removeLife();
     if (lives === 0){
@@ -414,6 +435,7 @@ function pacGotBusted() {
     }
     else{
         draw();
+        playGameMusic();
         // TODO: possible to add 'ready?' animation here
         setTimeout(setGameIntervals, 2200);
     }

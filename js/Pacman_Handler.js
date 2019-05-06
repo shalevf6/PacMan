@@ -11,7 +11,7 @@ function initPacman() {
             pacman.direction = e.key;
     });
     let emptyCell = findRandomSpot(board_objects);
-    while (isCornerCell(emptyCell))
+    while (isCornerCell(emptyCell) || isPointCell(emptyCell))
         emptyCell = findRandomSpot(board_objects);
     board_objects[emptyCell.i][emptyCell.j] = 3;
     pacman.i = emptyCell.i;
@@ -53,7 +53,15 @@ function updatePositionPacman(){
  * @param cell - a given cell
  */
 function isCornerCell(cell) {
-    return (cell[0] === 0 && cell[1] === 0) || (cell[0] === 0 && cell[1] === 16) || (cell[0] === 19 && cell[1] === 0) || (cell[0] === 19 && cell[1] === 19);
+    return (cell.i === 0 && cell.j === 0) || (cell.i === 0 && cell.j === 16) || (cell.i === 19 && cell.j === 0) || (cell.i=== 19 && cell.j === 19);
+}
+
+/**
+ * checks whether a given cell has a point ball in it
+ * @param cell - a given cell
+ */
+function isPointCell(cell) {
+    return board_static[cell.i][cell.j] !== 0;
 }
 
 

@@ -41,9 +41,6 @@ function updatePositionApple(){
     apple.i = chosenMove.y;
     apple.j = chosenMove.x;
 
-    // not really necessary
-    draw();
-
     board_objects[apple.i][apple.j] = apple.id;
 }
 

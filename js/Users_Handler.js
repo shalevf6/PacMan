@@ -200,6 +200,7 @@ function logout() {
                     icon: "success",
                 });
                 loggedIn = false;
+                resetKeys(); // function in settings
                 ShowSection('welcome_div');
                 document.getElementById("logout_button").style.display="none";
                 document.getElementById('upper_user').innerHTML = "No user logged in";

@@ -21,6 +21,9 @@ function hideDivs(){
  */
 function ShowSection(id)
 {
+    if (game_on){
+        endGame();
+    }
     // preventing from accessing settings window before logging in
     if (id === 'settings_div' && !loggedIn) {
         swal("Oops!", "You need to log in before accessing the settings", "error");
@@ -40,6 +43,7 @@ function ShowSection(id)
         clearForm('register_form');
         clearForm('login_form');
         clearSettings();
+
     }
 }
 
@@ -48,8 +52,9 @@ function ShowSection(id)
  */
 function PageLoaded()
 {
-    ShowSection('game_div');
-    initGame();
+    ShowSection('welcome_div');
+    // ShowSection('game_div');
+    // initGame();
 }
 
 

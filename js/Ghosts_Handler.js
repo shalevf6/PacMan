@@ -55,7 +55,7 @@ function drawGhost(ghost) {
 
 
 /**
- * funtion to get the valid moves of a given ghost
+ * function to get the valid moves of a given ghost
  * @param ghost - the given ghost
  * @returns {Array} - array of {x: x, y: y}
  */

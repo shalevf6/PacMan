@@ -430,6 +430,6 @@ form input {
     display: inline-block;
 }
 
-#volume_off_button, #volume_on_button {
-
+#music_off_button, #music_on_button {
+    font-size:15px;
 }

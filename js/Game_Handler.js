@@ -4,7 +4,6 @@ let CANVAS_CTX;
 let intervals;
 let start_time;
 let time_left;
-let interval;
 
 /**************     BOARD SIZE SETTINGS     ****************/
 let BOARDER_WIDTH = 1000;
@@ -28,12 +27,6 @@ let ghost3;
 
 let keySettings;
 let ALL_GHOSTS = [];
-
-
-/**************     SOUND SETTINGS     ****************/
-let game_music;
-let eat_sound;
-let caught_sound;
 
 
 /**************     TMP SETTINGS     ****************/
@@ -91,29 +84,19 @@ function initGame() {
  * function to set all game needed intervals
  */
 function setGameIntervals(){
+    initGameMusic();
     intervals.pacmanUpdate = setInterval(updatePositionPacman, 251);
     intervals.ghostUpdate = setInterval(updatePositionGhosts, 333);
     intervals.appleUpdate = setInterval(updatePositionApple, 333);
     intervals.collisionDetection = setInterval(collisionDetection, 40);
-    intervals.timeInterval = setInterval(updateTime,250);
-    intervals.gameInterval = setInterval(updateGameState, 250);
+    intervals.timeInterval = setInterval(updateTime,1000);
 }
 
-/**
- * checks if the timer hits zero and ends the game if it does
- */
-function updateGameState() {
-    if (time_left <= 0) {
-        endGame();
-        window.clearIntervals(intervals.gameInterval);
-    }
-}
 
 /**
  * initializes the time of the current game
  */
 function initTime() {
-    start_time = Date.now();
     $('#lblTime').val(game_time);
 }
 
@@ -180,9 +163,10 @@ function drawBall(i, j, color) {
 }
 
 function updateTime() {
-    let currentTime = Date.now();
-    time_left = Math.round(game_time - ((currentTime - start_time)) / 1000);
-    $('#lblTime').val(time_left);
+    if (game_time > 0){
+        game_time--;
+    }
+    $('#lblTime').val(game_time);
 }
 
 /**
@@ -253,7 +237,7 @@ function draw() {
     drawPacman();
     drawGhosts();
     drawApple();
-    initGameMusic();
+    // initGameMusic();
 
     $('#lblScore').val(score.toString());
 }
@@ -323,6 +307,9 @@ function pacmanInterval() {
  * TODO: add running character
  */
 function collisionDetection() {
+    if (game_time === 0){
+        endGame();
+    }
     ALL_GHOSTS.forEach(function (ghost) {
         if (ghost === undefined)
             return;
@@ -332,15 +319,18 @@ function collisionDetection() {
             score -= 10;
             pacGotBusted();
         }
-    })
+    });
 }
 
 /**
  * ends the current game
  */
-function endGame() {
+function endGame(endReason) {
     clearIntervals();
     stopGameMusic();
+
+    if (endReason !== undefined)
+        endReason();
 }
 
 /**
@@ -349,13 +339,13 @@ function endGame() {
 function clearIntervals(){
     Object.keys(intervals).forEach(function (key, index) {
         // in case the game really ended
-        if(lives === 0 || time_left <= 0) {
-            clearInterval(intervals[key]);
-        }
-        // in case the pacman just got busted
-        else if (key !== "timeInterval" && key !== "gameInterval") {
-            clearInterval(intervals[key]);
-        }
+        // if(lives === 0 || time_left <= 0) {
+        clearInterval(intervals[key]);
+        // }
+        // // in case the pacman just got busted
+        // else if (key !== "timeInterval" && key !== "gameInterval") {
+        //     clearInterval(intervals[key]);
+        // }
     });
 }
 

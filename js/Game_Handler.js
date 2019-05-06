@@ -186,18 +186,26 @@ function resetLives() {
  * function to update score status based on pacman movement
  */
 function updateScore() {
+    let scored = false;
     if (board_static[pacman.i][pacman.j] === 5 ){
         score+=5;
         board_static[pacman.i][pacman.j] =0;
+        scored = true;
     }
     if (board_static[pacman.i][pacman.j] === 15 ){
         score+=15;
         board_static[pacman.i][pacman.j] =0;
+        scored = true;
     }
     if (board_static[pacman.i][pacman.j] === 25 ){
         score+=25;
         board_static[pacman.i][pacman.j] =0;
+        scored = true;
     }
+
+    if (scored)
+        document.getElementById("eat").pause();
+        document.getElementById("eat").play();
 }
 
 
@@ -320,7 +328,6 @@ function collisionDetection() {
             score -= 10;
             pacGotBusted();
         }
-
     })
 }
 
@@ -345,6 +352,8 @@ function pacGotBusted() {
     clearIntervals();
     initPacman();
     initGhosts();
+
+    document.getElementById('caught').play();
 
     removeLife();
     if (lives === 0){

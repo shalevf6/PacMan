@@ -225,7 +225,11 @@
                     <label class="game_labels" for="lblScore">SCORE :</label>
                     <input class="game_inputs" id="lblScore" type="text" style="margin-right: 30px"/>
                     <label class="game_labels" for="lblTime">TIME :</label>
-                    <input class="game_inputs" id="lblTime" type="text"/>
+                    <input class="game_inputs" id="lblTime" type="text" style="margin-right: 30px"/>
+                    <label id="volume_off_label" class="game_labels" style="margin-right: 10px">SOUND OFF :</label>
+                    <button id="volume_off_button"  class="game_inputs" type="button"><span class="fa fa-volume-off"></span></button>
+                    <label id="volume_on_label" class="game_labels" style="display: none; margin-right: 10px;">SOUND ON :</label>
+                    <button id="volume_on_button" class="game_inputs" type="button" style="display: none"><span class="fa fa-volume-up"></span></button>
                     <br/>
                     <br>
                 </div>
@@ -264,6 +268,8 @@
                 <img id="APPLE_2" src="Images/apple2.png" style="display: none">
                 <img id="APPLE_3" src="Images/apple3.png" style="display: none">
                 <img id="APPLE_4" src="Images/apple4.png" style="display: none">
+                <audio id="caught" src="Audio/caught.wav" style="display: none"></audio>
+                <audio id="eat" src="Audio/eat.wav" style="display: none"></audio>
             </div>
         </div>
     </div>

@@ -13,6 +13,7 @@ MUST HAVE:
 2. connect audio to game at decent places (collision, general, pacGotBusted and so...)
 3. add a running character. do it similarly to how the ghosts are moving (without manhattan) - it's all in Ghosts JS
 4. make sure that settings are well connected to Game_Handler.js (you can see that there is a section TMP SETTINGS - those need to be connected)
+5. fix pac-man landing right on points
 
 NICE TO HAVE:
 1. pacman, ghosts and character moving intervals.

@@ -1,0 +1,25 @@
+Hi Shalevf!
+first of all SHTAK... always remember that!
+
+here are some stuff that has been done:
+1. pacman is moving
+2. ghosts are moving by manhattan distance
+3. collision detection is working
+4. code separation has been made
+
+here are some stuff needs to be done:
+MUST HAVE:
+1. audio JS file with audio. bring whatever you like, i trust you
+2. connect audio to game at decent places (collision, general, pacGotBusted and so...)
+3. add a running character. do it similarly to how the ghosts are moving (without manhattan) - it's all in Ghosts JS
+4. make sure that settings are well connected to Game_Handler.js (you can see that there is a section TMP SETTINGS - those need to be connected)
+
+NICE TO HAVE:
+1. pacman, ghosts and character moving intervals.
+2. cool restart when pacman gets busted
+3. end game theme or graphic or some other 'shit' (you are an idiot ;))
+
+START WITH MUST HAVE.
+you don't have to finish with everything, we'll be in touch i might be back early tomorrow.
+
+yalla bye.

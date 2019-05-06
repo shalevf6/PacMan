@@ -183,9 +183,9 @@ $(document).ready(function() {
         document.getElementById('point_color_5').value = getRandomColor();
         document.getElementById('point_color_15').value = getRandomColor();
         document.getElementById('point_color_25').value = getRandomColor();
-        document.getElementById('num_of_balls').value = Math.floor(Math.random() * 40) + 50;
-        document.getElementById('num_of_enemies').value = Math.floor(Math.random() * 2) + 1;
-        document.getElementById('game_time').value = Math.floor(Math.random() * 180) + 60;
+        document.getElementById('num_of_balls').value = Math.floor(Math.random() * 41) + 50;
+        document.getElementById('num_of_enemies').value = Math.floor(Math.random() * 3) + 1;
+        document.getElementById('game_time').value = Math.floor(Math.random() * 181) + 60;
     };
 });
 

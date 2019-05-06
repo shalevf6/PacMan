@@ -2,20 +2,15 @@
  * function to init the entire board
  */
 function initBoard() {
-    let canvas = document.getElementById('canvas');
-    canvas.setAttribute('width', BOARDER_WIDTH.toString());
-    canvas.setAttribute('height', BOARDER_HEIGHT.toString());
-
-    CANVAS_CTX = canvas.getContext('2d');
-    keySettings = [];
-    keySettings.push(up_key, down_key, left_key, right_key);
 
     resetLives();
     setLogicBoard();
+    /*
     drawBoard();
 
     setPointBalls();
     drawPoints();
+    */
 
     /**
      * disables the up, down and space keys to prevent unnecessary scrolling
@@ -26,6 +21,7 @@ function initBoard() {
             e.preventDefault();
         }
     }, false);
+    /*
     initPacman();
     drawPacman();
 
@@ -38,6 +34,7 @@ function initBoard() {
 
     setInterval(updatePositionPacman, 250);
     setInterval(updatePositionGhosts, 300);
+    */
 }
 
 /**
@@ -334,4 +331,16 @@ function findRandomSpot(board){
         j = findSpot(17);
     }
     return {i: i, j: j};
+}
+
+/**
+ * function to remove all characters from board
+ */
+function clearCharactersFromBoard() {
+    board_objects[pacman.i][pacman.j] = 0;
+    ALL_GHOSTS.forEach(function (ghost) {
+        if (ghost === undefined)
+            return;
+        board_objects[ghost.i][ghost.j] = 0;
+    });
 }

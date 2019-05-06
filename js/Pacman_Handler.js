@@ -2,6 +2,10 @@
  * initializes the pacman object
  */
 function initPacman() {
+    pacman = {};
+    pacman.baseName = 'PACMAN';
+    pacman.pacman_image = 2;
+
     addEventListener('keydown', function(e){
         if (keySettings.includes(e.key))
             pacman.direction = e.key;

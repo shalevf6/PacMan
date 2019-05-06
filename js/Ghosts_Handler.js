@@ -2,6 +2,7 @@
  * initializes the ghosts objects
  */
 function initGhosts(){
+    ALL_GHOSTS = [];
     ghost1 = {};
     board_objects[0][0] = 6;
     ghost1.id = 6;
@@ -138,6 +139,9 @@ function updatePositionGhosts(){
         element.j_last = element.j;
         element.i = chosenMove.y;
         element.j = chosenMove.x;
+
+        // not really necessary
+        draw();
 
         board_objects[element.i][element.j] = element.id;
     });

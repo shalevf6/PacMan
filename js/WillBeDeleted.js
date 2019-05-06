@@ -155,5 +155,5 @@ function UpdatePosition() {
 function PageLoaded()
 {
     ShowSection('game_div');
-    initBoard();
+    initGame();
 }

@@ -1,4 +1,5 @@
 let CANVAS_CTX;
+let intervals;
 
 /**************     BOARD SIZE SETTINGS     ****************/
 let BOARDER_WIDTH = 1000;
@@ -14,16 +15,8 @@ let score = 0;
 
 
 /**************     PACMAN SETTINGS     ****************/
-let pacman = {};
-pacman.baseName = 'PACMAN';
-pacman.pacman_image = 2;
-// pacman.direction = 'UP';
-
-let apple = {};
-apple.baseName = 'APPLE_';
-apple.apple_image = 1;
-apple.direction = 'UP';
-apple.eaten = false;
+let pacman;
+let apple;
 let ghost1;
 let ghost2;
 let ghost3;
@@ -53,26 +46,45 @@ if (!left_key)
 if (!right_key)
     right_key = 'ArrowRight';
 
-enemy_amount = 3;
+enemy_amount = 2;
 
 /**
  * initializes a brand new game
  */
 function initGame() {
-    initBoard();
-    pacman = {};
-    ghost1 = {};
-    ghost2 = null;
-    ghost3 = null;
-    apple = {};
+    let canvas = document.getElementById('canvas');
+    canvas.setAttribute('width', BOARDER_WIDTH.toString());
+    canvas.setAttribute('height', BOARDER_HEIGHT.toString());
+
+    CANVAS_CTX = canvas.getContext('2d');
+    keySettings = [];
+    keySettings.push(up_key, down_key, left_key, right_key);
+
     lives = 3;
     score = 0;
+    intervals = {};
+
+    initBoard();
+    setPointBalls();
     initPacman();
     initGhosts();
     initApple();
+
+    setGameIntervals();
 }
 
+/**
+ * function to set all game needed intervals
+ */
+function setGameIntervals(){
+    intervals.pacmanUpdate = setInterval(updatePositionPacman, 251);
+    intervals.ghostUpdate = setInterval(updatePositionGhosts, 333);
+    intervals.collisionDetection = setInterval(collisionDetection, 40);
+}
 
+/*
+3 functions needs to be moved to different JS file (Points_Handler.js)
+ */
 function setPointBalls() {
     let five_point = Math.floor(ball_amount*0.6);
     let fifteen_point = Math.floor(ball_amount*0.3);
@@ -152,7 +164,6 @@ function removeLife() {
         lifeToRemove = document.getElementById('heart_one');
         lifeToRemove.style.display = "none";
         lives = 0;
-        // TODO : handle losing the game
     }
 }
 
@@ -171,24 +182,9 @@ function resetLives() {
 }
 
 
-
-
-
 /**
- * initializes the apple object
+ * function to update score status based on pacman movement
  */
-function initApple() {
-    if (!apple.eaten){
-        board_objects[19][19] = 50;
-        apple.id = 50;
-        apple.i = 19;
-        apple.j = 19;
-        apple.i_last = -1;
-        apple.j_last = -1;
-    }
-}
-
-
 function updateScore() {
     if (board_static[pacman.i][pacman.j] === 5 ){
         score+=5;
@@ -231,6 +227,25 @@ function drawGhosts() {
     });
 }
 
+
+/**
+ * initializes the apple object
+ */
+function initApple() {
+    apple = {};
+    apple.baseName = 'APPLE_';
+    apple.apple_image = 1;
+    apple.direction = 'UP';
+    apple.eaten = false;
+    if (!apple.eaten){
+        board_objects[19][19] = 50;
+        apple.id = 50;
+        apple.i = 19;
+        apple.j = 19;
+        apple.i_last = -1;
+        apple.j_last = -1;
+    }
+}
 
 /**
  * draws the apple on the canvas
@@ -288,4 +303,56 @@ function pacmanInterval() {
         pacman.pacman_image = 1;
     else
         pacman.pacman_image++;
+}
+
+
+/**
+ * function to detect weather pacman had collide with other character
+ * TODO: add running character
+ */
+function collisionDetection() {
+    ALL_GHOSTS.forEach(function (ghost) {
+        if (ghost === undefined)
+            return;
+
+        if (ghost.i === pacman.i
+        && ghost.j === pacman.j){
+            score -= 10;
+            pacGotBusted();
+        }
+
+    })
+}
+
+function endGame() {
+
+}
+
+/**
+ * function to clear all intervals
+ */
+function clearIntervals(){
+    Object.keys(intervals).forEach(function (key, index) {
+        clearInterval(intervals[key]);
+    });
+}
+
+/**
+ * function that will handle when pac has gone busted
+ */
+function pacGotBusted() {
+    clearCharactersFromBoard();
+    clearIntervals();
+    initPacman();
+    initGhosts();
+
+    removeLife();
+    if (lives === 0){
+        endGame();
+    }
+    else{
+        draw();
+        // TODO: possible to add 'ready?' animation here
+        setTimeout(setGameIntervals, 2200);
+    }
 }

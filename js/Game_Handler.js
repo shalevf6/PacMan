@@ -2,8 +2,7 @@
 /**************     GENERAL SETTINGS     ****************/
 let CANVAS_CTX;
 let intervals;
-let start_time;
-let time_left;
+let game_on = false;
 
 /**************     BOARD SIZE SETTINGS     ****************/
 let BOARDER_WIDTH = 1000;
@@ -39,7 +38,7 @@ let eat_extra_sound;
 
 /**************     TMP SETTINGS     ****************/
 // TODO: connect these settings to the settings handler
-let ball_count=0;
+let ball_count;
 if (!ball_5_color)
     ball_5_color  = 'yellow';
 if (!ball_15_color)
@@ -49,32 +48,38 @@ if (!ball_25_color)
 if (!ball_amount)
     ball_amount = 90;
 
-if (!up_key)
-    up_key  = 'ArrowUp';
-if (!down_key)
-    down_key = 'ArrowDown';
-if (!left_key)
-    left_key = 'ArrowLeft';
-if (!right_key)
-    right_key = 'ArrowRight';
-
 enemy_amount = 2;
 game_time = 20;
 
+
+function setDefaults(){
+    if (!up_key)
+        up_key  = 'ArrowUp';
+    if (!down_key)
+        down_key = 'ArrowDown';
+    if (!left_key)
+        left_key = 'ArrowLeft';
+    if (!right_key)
+        right_key = 'ArrowRight';
+}
 /**
  * initializes a brand new game
  */
 function initGame() {
+    game_on = true;
+
     let canvas = document.getElementById('canvas');
     canvas.setAttribute('width', BOARDER_WIDTH.toString());
     canvas.setAttribute('height', BOARDER_HEIGHT.toString());
-
     CANVAS_CTX = canvas.getContext('2d');
+
+    setDefaults();
     keySettings = [];
     keySettings.push(up_key, down_key, left_key, right_key);
 
     lives = 3;
     score = 0;
+    ball_count = 0;
 
     intervals = {};
 
@@ -98,7 +103,6 @@ function setGameIntervals(){
     intervals.appleUpdate = setInterval(updatePositionApple, 333);
     intervals.collisionDetection = setInterval(collisionDetection, 40);
     intervals.timeInterval = setInterval(updateTime,1000);
-    intervals.gameInterval = setInterval(updateGameState, 250);
     intervals.pacmanAnimation = setInterval(pacmanInterval,250);
     intervals.appleAnimation = setInterval(appleInterval, 100);
 }
@@ -248,7 +252,6 @@ function draw() {
     drawPacman();
     drawGhosts();
     drawApple();
-    // initGameMusic();
 
     $('#lblScore').val(score.toString());
 }
@@ -341,17 +344,18 @@ function collisionDetection() {
 
 /**
  * ends the current game
- * @param reason - the reason the game ended
+ * @param endReason - the reason the game ended
  */
 function endGame(endReason) {
+    game_on = false;
     clearIntervals();
     stopGameMusic();
 
     if (endReason !== undefined)
         endReason();
-    addMessageToGameOverWindow(endReason);
-    // shows the game over window
-    document.getElementById('game_over_div').style.display = "block";
+    // addMessageToGameOverWindow(endReason);
+    // // shows the game over window
+    // document.getElementById('game_over_div').style.display = "block";
 }
 
 /**

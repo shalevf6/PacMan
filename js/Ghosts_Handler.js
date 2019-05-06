@@ -149,9 +149,6 @@ function updatePositionGhosts(){
         element.i = chosenMove.y;
         element.j = chosenMove.x;
 
-        // not really necessary
-        draw();
-
         board_objects[element.i][element.j] = element.id;
     });
 }

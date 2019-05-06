@@ -229,16 +229,23 @@ function updateScore() {
         score+=5;
         board_static[pacman.i][pacman.j] =0;
         playEat(eat_points_sound);
+        ball_count--;
     }
     if (board_static[pacman.i][pacman.j] === 15 ){
         score+=15;
         board_static[pacman.i][pacman.j] =0;
         playEat(eat_points_sound);
+        ball_count--;
     }
     if (board_static[pacman.i][pacman.j] === 25 ){
         score+=25;
         board_static[pacman.i][pacman.j] =0;
         playEat(eat_points_sound);
+        ball_count--;
+    }
+
+    if (ball_count === 0){
+        endGame(timesUp);
     }
 }
 
@@ -321,7 +328,7 @@ function pacmanInterval() {
  */
 function collisionDetection() {
     if (game_time === 0){
-        endGame();
+        endGame(timesUp);
     }
     ALL_GHOSTS.forEach(function (ghost) {
         if (ghost === undefined)
@@ -360,24 +367,31 @@ function endGame(endReason) {
 
 /**
  * adds the appropriate message to the game over window
- * @param reason - the reason the game ended
  */
-function addMessageToGameOverWindow(reason) {
+function timesUp() {
     let game_over_message = document.getElementById('game_over_message');
     let game_over_points = document.getElementById('game_over_points');
-    if (reason === 'NO_TIME') {
-        if (score < 150) {
-            game_over_message.innerHTML = "You can do better..";
-            game_over_points.innerHTML = "Points earned : " + score;
-        }else {
-            let game_over_headline = document.getElementById('game_over_headline');
-            game_over_headline.innerHTML = "We have a Winner!!!"
-            game_over_points.innerHTML = "Points earned : " + score;
-        }
+    if (score < 150) {
+        game_over_message.innerHTML = "You can do better..";
+        game_over_points.innerHTML = "Points earned : " + score;
     }
-    if (reason === 'NO_LIVES') {
-        game_over_message.innerHTML = "You Lost!";
+    else {
+        let game_over_headline = document.getElementById('game_over_headline');
+        game_over_headline.innerHTML = "We have a Winner!!!";
+        game_over_message.innerHTML = "Good job bro ;)";
+        game_over_points.innerHTML = "Points earned : " + score;
     }
+
+    $('#game_over_div').show();
+}
+
+/**
+ * function to let the user know he lost
+ */
+function loseFunc(){
+    $('#game_over_headline').html('You Lost ;(');
+    $('#game_over_points').html('Your Points' + score.toString());
+    $('#game_over_div').show();
 }
 
 /**
@@ -410,7 +424,7 @@ function pacGotBusted() {
 
     removeLife();
     if (lives === 0){
-        endGame('NO_LIVES');
+        endGame(loseFunc);
     }
     else{
         draw();

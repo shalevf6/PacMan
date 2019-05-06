@@ -63,13 +63,13 @@ function validMoves(ghost){
     let moves = [];
     let x = ghost.j;
     let y = ghost.i;
-    if (x-1 >= 0 && clearPoint(x-1, y))
+    if (x-1 >= 0 && ghostClearPoint(x-1, y))
         moves.push({x: x-1, y: y});
-    if (y-1 >= 0 && clearPoint(x, y-1))
+    if (y-1 >= 0 && ghostClearPoint(x, y-1))
         moves.push({x: x, y: y-1});
-    if (x+1 <= 16 && clearPoint(x+1, y))
+    if (x+1 <= 16 && ghostClearPoint(x+1, y))
         moves.push({x: x + 1, y: y});
-    if (y+1 <= 19 && clearPoint(x, y+1))
+    if (y+1 <= 19 && ghostClearPoint(x, y+1))
         moves.push({x: x, y: y+1});
 
     return moves;
@@ -82,10 +82,9 @@ function validMoves(ghost){
  * @param y - the y coordinate
  * @returns {boolean}
  */
-function clearPoint(x, y) {
-    return board_objects[y][x] !== 1
-        && board_objects[y][x] !== 3
-        && board_objects[y][x] !== 2;
+function ghostClearPoint(x, y) {
+    return board_objects[y][x] === 0
+        || board_objects[y][x] === 3;
 }
 
 /**

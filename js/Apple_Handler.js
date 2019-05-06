@@ -70,7 +70,9 @@ function appleValidMoves(){
  * draws the apple on the canvas
  */
 function drawApple() {
-    let ctx = CANVAS_CTX;
-    let apple_image = document.getElementById('APPLE_' + apple.apple_image);
-    ctx.drawImage(apple_image, 1.2 * LINE_SPAN_WIDTH + apple.j * LINE_SPAN_WIDTH, 1.1 * LINE_SPAN_HEIGHT + apple.i * LINE_SPAN_HEIGHT, 29, 29);
+    if (!apple.eaten) {
+        let ctx = CANVAS_CTX;
+        let apple_image = document.getElementById('APPLE_' + apple.apple_image);
+        ctx.drawImage(apple_image, 1.2 * LINE_SPAN_WIDTH + apple.j * LINE_SPAN_WIDTH, 1.1 * LINE_SPAN_HEIGHT + apple.i * LINE_SPAN_HEIGHT, 29, 29);
+    }
 }

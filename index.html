@@ -5,6 +5,8 @@
     <link rel="stylesheet" type="text/css" href="css/StyleSheet.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
@@ -221,6 +223,21 @@
         <!--      GAME DIV      -->
         <div id="game_div" class="content">
             <div id="game_screen">
+                <!--      GAME OVER DIV      -->
+                <div id="game_over_div">
+                    <!-- Modal content -->
+                    <div id="game_over_content">
+                        <span class="game_over_content" id="game_over_headline">GAME OVER !</span>
+                        <br>
+                        <span class="game_over_content" id="game_over_message"></span>
+                        <br>
+                        <span class="game_over_content" id="game_over_points"></span>
+                        <div>
+                            <button class="game_over_buttons" id="start_new_game_button" type="button" onclick="initGame(); closeGameOverScreen();">NEW GAME</button>
+                            <button class="game_over_buttons" id="exit_button" type="button" onclick="ShowSection('welcome_div')">HOME</button>
+                        </div>
+                    </div>
+                </div>
                 <div id="game_top">
                     <label class="game_labels" for="lblScore">SCORE :</label>
                     <input class="game_inputs" id="lblScore" type="text" style="margin-right: 30px"/>
@@ -268,8 +285,10 @@
                 <img id="APPLE_3" src="Images/apple3.png" style="display: none">
                 <img id="APPLE_4" src="Images/apple4.png" style="display: none">
                 <audio id="caught" src="Audio/caught.wav" style="display: none"></audio>
-                <audio id="eat" src="Audio/eat.wav" style="display: none"></audio>
+                <audio id="eat_points" src="Audio/eat_points.mp3" style="display: none"></audio>
                 <audio id="game_music" src="Audio/game_music1.mp3" style="display: none"></audio>
+                <audio id="eat_apple" src="Audio/eat_apple.wav" style="display: none"></audio>
+                <audio id="eat_extra" src="Audio/eat_extra.mp3" style="display: none"></audio>
             </div>
         </div>
     </div>
@@ -295,7 +314,6 @@
         <p id="about_headline">
         <h1 class="about_content"><u>About Us : Shalev Fainstein, Hagai Kalinhoff</u></h1>
         </p>
-        <p id="about_names">
         <h3 class="about_content"></h3>
         </p>
         <span class="about_content" id="about_base_content">

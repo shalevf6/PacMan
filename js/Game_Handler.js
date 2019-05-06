@@ -4,7 +4,6 @@ let CANVAS_CTX;
 let intervals;
 let start_time;
 let time_left;
-let interval;
 
 /**************     BOARD SIZE SETTINGS     ****************/
 let BOARDER_WIDTH = 1000;
@@ -32,8 +31,10 @@ let ALL_GHOSTS = [];
 
 /**************     SOUND SETTINGS     ****************/
 let game_music;
-let eat_sound;
+let eat_points_sound;
 let caught_sound;
+let eat_apple_sound;
+let eat_extra_sound;
 
 
 /**************     TMP SETTINGS     ****************/
@@ -58,7 +59,7 @@ if (!right_key)
     right_key = 'ArrowRight';
 
 enemy_amount = 2;
-game_time = 10;
+game_time = 20;
 
 /**
  * initializes a brand new game
@@ -74,6 +75,7 @@ function initGame() {
 
     lives = 3;
     score = 0;
+
     intervals = {};
 
     initBoard();
@@ -97,6 +99,8 @@ function setGameIntervals(){
     intervals.collisionDetection = setInterval(collisionDetection, 40);
     intervals.timeInterval = setInterval(updateTime,250);
     intervals.gameInterval = setInterval(updateGameState, 250);
+    intervals.pacmanAnimation = setInterval(pacmanInterval,250);
+    intervals.appleAnimation = setInterval(appleInterval, 100);
 }
 
 /**
@@ -104,7 +108,7 @@ function setGameIntervals(){
  */
 function updateGameState() {
     if (time_left <= 0) {
-        endGame();
+        endGame('NO_TIME');
         window.clearIntervals(intervals.gameInterval);
     }
 }
@@ -229,17 +233,17 @@ function updateScore() {
     if (board_static[pacman.i][pacman.j] === 5 ){
         score+=5;
         board_static[pacman.i][pacman.j] =0;
-        playEat();
+        playEat(eat_points_sound);
     }
     if (board_static[pacman.i][pacman.j] === 15 ){
         score+=15;
         board_static[pacman.i][pacman.j] =0;
-        playEat();
+        playEat(eat_points_sound);
     }
     if (board_static[pacman.i][pacman.j] === 25 ){
         score+=25;
         board_static[pacman.i][pacman.j] =0;
-        playEat();
+        playEat(eat_points_sound);
     }
 }
 
@@ -317,10 +321,9 @@ function pacmanInterval() {
         pacman.pacman_image++;
 }
 
-
 /**
- * function to detect weather pacman had collide with other character
- * TODO: add running character
+ * function to detect weather pacman had collided with another character
+ * // TODO : ADD COLLISION AND SOUND WITH CLOCK
  */
 function collisionDetection() {
     ALL_GHOSTS.forEach(function (ghost) {
@@ -330,17 +333,50 @@ function collisionDetection() {
         if (ghost.i === pacman.i
             && ghost.j === pacman.j){
             score -= 10;
+            if (score < 0)
+                score = 0;
             pacGotBusted();
         }
-    })
+    });
+    if (apple.i === pacman.i && apple.j === pacman.j) {
+        score += 50;
+        apple.eaten = true;
+        playEat(eat_apple_sound);
+    }
 }
 
 /**
  * ends the current game
+ * @param reason - the reason the game ended
  */
-function endGame() {
+function endGame(reason) {
     clearIntervals();
     stopGameMusic();
+    addMessageToGameOverWindow(reason);
+    // shows the game over window
+    document.getElementById('game_over_div').style.display = "block";
+}
+
+/**
+ * adds the appropriate message to the game over window
+ * @param reason - the reason the game ended
+ */
+function addMessageToGameOverWindow(reason) {
+    let game_over_message = document.getElementById('game_over_message');
+    let game_over_points = document.getElementById('game_over_points');
+    if (reason === 'NO_TIME') {
+        if (score < 150) {
+            game_over_message.innerHTML = "You can do better..";
+            game_over_points.innerHTML = "Points earned : " + score;
+        }else {
+            let game_over_headline = document.getElementById('game_over_headline');
+            game_over_headline.innerHTML = "We have a Winner!!!"
+            game_over_points.innerHTML = "Points earned : " + score;
+        }
+    }
+    if (reason === 'NO_LIVES') {
+        game_over_message.innerHTML = "You Lost!";
+    }
 }
 
 /**
@@ -373,11 +409,18 @@ function pacGotBusted() {
 
     removeLife();
     if (lives === 0){
-        endGame();
+        endGame('NO_LIVES');
     }
     else{
         draw();
         // TODO: possible to add 'ready?' animation here
         setTimeout(setGameIntervals, 2200);
     }
+}
+
+/**
+ * closes the game over screen
+ */
+function closeGameOverScreen() {
+    document.getElementById('game_over_div').style.display = "none";
 }

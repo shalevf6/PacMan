@@ -1,7 +1,6 @@
 var context = canvas.getContext("2d");
 var shape = new Object();
 var board;
-var score;
 var pac_color;
 var start_time;
 var time_elapsed;

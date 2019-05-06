@@ -241,7 +241,6 @@ function updateScore() {
         board_static[pacman.i][pacman.j] =0;
         playSound(eat_points_sound);
         ball_count--;
-
     }
     if (board_static[pacman.i][pacman.j] === 25 ){
         score+=25;

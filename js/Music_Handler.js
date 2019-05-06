@@ -39,10 +39,10 @@ document.getElementById("music_on_button").onclick = function() {
 /**
  * plays a game sound
  */
-function playSound(eatSound) {
-    eatSound.pause();
-    eatSound.currentTime = 0;
-    eatSound.play();
+function playSound(gameSound) {
+    gameSound.pause();
+    gameSound.currentTime = 0;
+    gameSound.play();
 }
 
 /**

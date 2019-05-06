@@ -73,17 +73,13 @@ registerValidator = $('#register_form').validate({
     },
 
     submitHandler : function(form) {
-        if (loggedIn)
-            swal("Oops!", "You need to log out before registering!", "error");
-        else {
-            let username = $('#register_username').val();
-            registeredUsers[username] = $('#register_password').val();
-            updateUpperUser(username);
-            clearForm(form.getAttribute('id'));
-            swal("Congrats!", "You Registered Successfully!", "success");
-            loggedIn = true;
-            ShowSection("settings_div");
-        }
+        let username = $('#register_username').val();
+        registeredUsers[username] = $('#register_password').val();
+        updateUpperUser(username);
+        clearForm(form.getAttribute('id'));
+        swal("Congrats!", "You Registered Successfully!", "success");
+        loggedIn = true;
+        ShowSection("settings_div");
     },
 
     invalidHandler : function(form) {
@@ -113,30 +109,26 @@ $(document).ready(function() {
         },
 
         submitHandler : function(form) {
-            if (loggedIn)
-                swal("Oops!", "You need to log out before logging in!", "error");
-            else {
-                let username = $('#login_username').val();
-                let password = $('#login_password').val();
-                let valid = false;
-                if (username in registeredUsers) {
-                    if (password === registeredUsers[username]) {
-                        valid = true;
-                    }
+            let username = $('#login_username').val();
+            let password = $('#login_password').val();
+            let valid = false;
+            if (username in registeredUsers) {
+                if (password === registeredUsers[username]) {
+                    valid = true;
                 }
+            }
 
-                // the user exists
-                if (valid) {
-                    updateUpperUser(username);
-                    clearForm(form.getAttribute('id'));
-                    swal("Congrats!", "You Logged in Successfully!", "success");
-                    loggedIn = true;
-                    ShowSection("settings_div");
-                }
-                // the user doesn't exist
-                else {
-                    swal("Oops!", "The user name or the password are incorrect", "error");
-                }
+            // the user exists
+            if (valid) {
+                updateUpperUser(username);
+                clearForm(form.getAttribute('id'));
+                swal("Congrats!", "You Logged in Successfully!", "success");
+                loggedIn = true;
+                ShowSection("settings_div");
+            }
+            // the user doesn't exist
+            else {
+                swal("Oops!", "The user name or the password are incorrect", "error");
             }
         },
 
@@ -208,22 +200,24 @@ function logout() {
         });
 }
 
-
-
-
-
-
-
-
-
-
-
+/**
+ * an error popping when you try to access the log in screen while logged in
+ */
+$('#login_button').click(function() {
+    if (loggedIn)
+        swal("Oops!", "You need to log out before logging in!", "error");
+    else
+        ShowSection('login_div');
+});
 
 /**
- * once submit has been pressed
-
- $('#register_form').submit(function (e) {
-
-})*/
+ * an error popping when you try to access the register screen while logged in
+ */
+$('#register_button').click(function() {
+    if (loggedIn)
+        swal("Oops!", "You need to log out before registering!", "error");
+    else
+        ShowSection('register_div');
+});
 
 

@@ -83,8 +83,9 @@ function validMoves(ghost){
  * @returns {boolean}
  */
 function clearPoint(x, y) {
-    return board_objects[y][x] === 0
-        || board_objects[y][x] === 3;
+    return board_objects[y][x] !== 1
+        && board_objects[y][x] !== 3
+        && board_objects[y][x] !== 2;
 }
 
 /**

@@ -25,13 +25,20 @@ function updatePositionApple(){
     let chosenMoveNumber = Math.floor(Math.random() * possibleMoves.length);
     let chosenMove;
 
-    if (possibleMoves.length !== 0)
-        chosenMove = possibleMoves[chosenMoveNumber];
-
-    if (chosenMove === undefined){
-        chosenMove = {};
-        chosenMove.x = apple.j;
-        chosenMove.y = apple.i;
+    chosenMove = possibleMoves[chosenMoveNumber];
+    if (possibleMoves.length === 1) {
+        // checking if its the last move or undefined
+        if (chosenMove === undefined || (chosenMove.x === apple.j_last && chosenMove.y === apple.i_last)) {
+            chosenMove = {};
+            chosenMove.x = apple.j;
+            chosenMove.y = apple.i;
+        }
+    }
+    else
+        // checking if its the last move
+        while (chosenMove.x === apple.j_last && chosenMove.y === apple.i_last) {
+            chosenMoveNumber = Math.floor(Math.random() * possibleMoves.length);
+            chosenMove = possibleMoves[chosenMoveNumber];
     }
 
     board_objects[apple.i][apple.j] = 0;

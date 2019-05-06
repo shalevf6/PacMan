@@ -107,13 +107,64 @@ function flipMenu(){
     menu_open = !menu_open;
 }
 
+/**
+ * opens the side-menu
+ */
 function openMenu() {
     document.getElementById("side-menu").style.width = "250px";
     document.getElementById("main-wrapper").style.marginLeft = "250px";
     document.getElementById("footer_wrapper").style.marginLeft = "250px";
 }
+
+/**
+ * closes the side-menu
+ */
 function closeMenu() {
     document.getElementById("side-menu").style.width = "0";
     document.getElementById("main-wrapper").style.marginLeft= "0";
     document.getElementById("footer_wrapper").style.marginLeft= "0";
 }
+
+/**
+ * transfers the use to the welcome screen
+ */
+$('#welcome_menu_item').click(function() {
+    ShowSection("welcome_div");
+    flipMenu();
+});
+
+/**
+ * transfers the use to the register screen
+ */
+$('#register_menu_item').click(function() {
+    if (loggedIn) {
+        swal("Oops!", "You need to log out before logging in!", "error");
+        flipMenu();
+    }
+    else {
+        ShowSection("register_div");
+        flipMenu();
+    }
+});
+
+/**
+ * transfers the use to the login screen
+ */
+$('#login_menu_item').click(function() {
+    if (loggedIn) {
+        swal("Oops!", "You need to log out before logging in!", "error");
+        flipMenu();
+    }
+    else {
+        ShowSection('login_div');
+        flipMenu();
+    }
+});
+
+/**
+ * transfers the use to the settings screen
+ */
+$('#settings_menu_item').click(function() {
+    ShowSection('settings_div');
+    flipMenu();
+});
